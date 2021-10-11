@@ -1,0 +1,88 @@
+
+
+    <div class="sidebar" data="blue">
+      <div class="sidebar-wrapper">
+
+        <div class="logo">
+          <a target="_blank" href="https://atrotech.ir" class="simple-text logo-mini">
+             توانکار
+          </a>
+          <a target="_blank" href="https://atrotech.ir" class="simple-text logo-normal">
+            Tavankar
+          </a>
+        </div>
+
+        <ul class="nav">
+        {% if user.is_authenticated %}
+
+          <li class="{% if 'app:mold' in segment %} active {% endif %}">
+            <a href="{% url 'app:mold' %}">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p> قالب ها </p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:manufacture_req' in segment %} active {% endif %}">
+            <a href="{% url 'app:manufacture_req' %}">
+              <i class="tim-icons icon-notes"></i>
+              <p>درخواست ساخت قالب</p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:repair_req' in segment %} active {% endif %}">
+            <a href="{% url 'app:repair_req' %}">
+              <i class="tim-icons icon-settings"></i>
+              <p> درخواست تعمیر قالب </p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:component_req' in segment %} active {% endif %}">
+            <a href="{% url 'app:component_req' %}">
+              <i class="tim-icons icon-components"></i>
+              <p> ساخت ها </p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:manufacturer' in segment %} active {% endif %}">
+            <a href="{% url 'app:manufacturer' %}">
+              <i class="tim-icons icon-single-02"></i>
+              <p> سازنده ها </p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:category' in segment %} active {% endif %}">
+            <a href="{% url 'app:category' %}">
+              <i class="tim-icons icon-align-center"></i>
+              <p> دسته بندی </p>
+            </a>
+          </li>
+
+          <li class="{% if 'app:product' in segment %} active {% endif %}">
+            <a href="{% url 'app:product' %}">
+              <i class="tim-icons icon-app"></i>
+              <p> محصولات  </p>
+            </a>
+          </li>
+
+
+          <li class="{% if 'page-user' in segment %} active {% endif %}">
+            <a href="{% url 'app:profile' %}">
+              <i class="tim-icons icon-badge"></i>
+              <p> پروفایل </p>
+            </a>
+          </li>
+
+
+          <li>
+            <a href="{% url 'account_logout' %}" >
+              <i class="tim-icons icon-user-run"></i>
+              <p> خروج </p>
+            </a>
+          </li>
+
+          {% endif %}
+
+        </ul>
+
+      </div>
+    </div>

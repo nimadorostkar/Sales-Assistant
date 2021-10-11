@@ -1,0 +1,97 @@
+{% extends "layouts/base.html" %}
+{% block title %} Dashboard {% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+{% load mptt_tags %}
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-lavender">
+      <div class="card-header">
+        <h3 class="card-title" dir="rtl" align="center"> سازنده ها </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-body">
+
+        <div class="table-responsive">
+          <table class="table tablesorter text-center" dir="rtl" align="center">
+            <thead class="text-primary">
+              <tr class="bold">
+                <th>
+                  سازنده
+                </th>
+                <th>
+                   توضیحات
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for Manufacturer in manufacturers %}
+              <tr>
+                <td> <a href="{{ Manufacturer.get_absolute_url }}">  {{ Manufacturer.Name }} </a> </td>
+                <td> {{ Manufacturer.Description|slice:":100" }}.. </td>
+              </tr>
+              {% endfor%}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  <script>
+
+
+
+
+
+    $("#eg1 li ul").slideToggle(); // hide all nested lists
+    $("#eg1 li ul").prev("a").click(function(){ // add fn to list items that have a nested list
+        $(this).next("ul").slideToggle(100); // show/hide the nested list
+        return false; // prevent scrolling
+    });
+
+
+
+
+
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+{% endblock javascripts %}
