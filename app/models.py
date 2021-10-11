@@ -48,24 +48,49 @@ class Profile(models.Model):
 
 
 #------------------------------------------------------------------------------
-class Product(models.Model):
-    Name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
+class Buyers(models.Model):
+    name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
+    phone_number = models.CharField(max_length=50,null=True, blank=True,verbose_name = "شماره تلفن")
+    address=models.CharField(max_length=200,null=True, blank=True,verbose_name = "آدرس")
+    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
 
-
-    def image_tag(self):
-        return format_html("<img width=50 src='{}'>".format(self.Image.url))
 
     def __str__(self):
-      return str(self.Name)
+      return str(self.name)
 
-    def get_absolute_url(self):
-        return reverse('app:product_detail',args=[self.id])
+    #def get_absolute_url(self):
+        #return reverse('app:buyer_detail',args=[self.id])
+
+    class Meta:
+        verbose_name = "خریدار"
+        verbose_name_plural = "خریداران"
+
+
+
+
+
+
+
+#------------------------------------------------------------------------------
+class Product(models.Model):
+    name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
+    code = models.CharField(max_length=40, verbose_name = "کد")
+    qty_in_box = models.IntegerField(verbose_name = "تعداد در کارتن")
+    price = models.CharField(max_length=40, verbose_name = "قیمت")
+    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
+    image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
+
+
+
+    def __str__(self):
+      return str(self.name)
 
     @property
-    def short_description(self):
-        return truncatechars(self.Description, 60)
+    def price_display(self):
+        return "تومان %s" % self.price
+
+    #def get_absolute_url(self):
+        #return reverse('app:product_detail',args=[self.id])
 
     class Meta:
         verbose_name = "محصول"
@@ -76,199 +101,28 @@ class Product(models.Model):
 
 
 
-#------------------------------------------------------------------------------
-class Manufacturer(models.Model):
-    Name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
-
-
-    def __str__(self):
-      return str(self.Name)
-
-    def get_absolute_url(self):
-        return reverse('app:manufacturer_detail',args=[self.id])
-
-    @property
-    def short_description(self):
-        return truncatechars(self.Description, 60)
-
-    class Meta:
-        verbose_name = "سازنده"
-        verbose_name_plural = "سازندگان"
-
-
-
-
 
 
 #------------------------------------------------------------------------------
-class Category(MPTTModel):
-    name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',verbose_name = "والد")
-
-
-    class MPTTMeta:
-        level_attr = 'mptt_level'
-        order_insertion_by = ['name']
-
-    class Meta:
-        verbose_name = "دسته بندی"
-        verbose_name_plural = "دسته بندی ها"
-
-    def get_absolute_url(self):
-        return reverse('app:category_detail',args=[self.id])
-
-    def __unicode__(self):
-        return u"%s" % (self.name)
-
-    def __str__(self):
-        return str(self.name)
-
-
-
-
-
-#------------------------------------------------------------------------------
-class Mold_type(models.Model):
-    Name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-
-    def __str__(self):
-      return str(self.Name)
-
-    class Meta:
-        verbose_name = "نوع قالب"
-        verbose_name_plural = "نوع قالب ها"
-
-
-
-
-
-#------------------------------------------------------------------------------
-class Piece_id(models.Model):
-    Name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-
-    def __str__(self):
-      return str(self.Name)
-
-    class Meta:
-        verbose_name = "شناسه قطعه"
-        verbose_name_plural = "شناسه قطعه ها"
-
-
-
-
-
-
-#------------------------------------------------------------------------------
-class Mold(models.Model):
-    Name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
-    Code = models.CharField(max_length=40, null=True, blank=True, unique=True, verbose_name = "کد")
-    Type = models.ForeignKey(Mold_type ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "نوع قالب")
-    Piece_id = models.ForeignKey(Piece_id ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "شناسه قطعه")
-    Cavities_qty = models.IntegerField(default='1', null=True, blank=True, verbose_name = "تعداد حفره")
-    Cavities_id = models.CharField(max_length=40, null=True, blank=True, verbose_name = "شناسه حفره")
-    Healthy_Cavities_qty = models.IntegerField(default='1', null=True, blank=True, verbose_name = "تعداد حفره های سالم")
-    Manufacturer = models.ForeignKey(Manufacturer ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "سازنده")
-    Related_product = models.ManyToManyField(Product, related_name='Product', verbose_name = "محصولات مرتبط")
-    Year = models.CharField(max_length=40, null=True, blank=True, verbose_name = "سال ساخت")                                     # Date just year
-    Mold_qty = models.IntegerField(default='1', null=True, blank=True, verbose_name = "تعداد قالب")
-    Category = models.ForeignKey(Category ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "دسته بندی")
-    Material = models.CharField(max_length=40, null=True, blank=True, verbose_name = "متریال طراحی")                             #CHOICES
-    File = models.FileField(default='media/Default.png', null=True, blank=True, verbose_name ="فایل")
-    Address = models.CharField(max_length=500, null=True, blank=True, verbose_name = "آدرس")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
+class Purchase_request(models.Model):
+    product = models.ForeignKey(Product ,on_delete=models.CASCADE, verbose_name = "محصول")
+    qty = models.IntegerField(verbose_name = "تعداد" )
+    buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")
+    description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
+    date = models.DateField(auto_now_add=True, verbose_name = "تاریخ")
+    CHOICES = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
+    Status=models.CharField(max_length=20,choices=CHOICES, default='جدید', verbose_name = "وضعیت")
 
 
     def __str__(self):
-      return str(self.Name)
+        return str(self.qty +" عدد "+ self.product +" برای "+ self.buyer +" در تاریخ "+ self.date )
 
-    def get_absolute_url(self):
-        return reverse('app:mold_detail',args=[self.id])
-
-    class Meta:
-        verbose_name = "قالب"
-        verbose_name_plural = "قالب ها"
-
-#https://stackoverflow.com/questions/537593/multiple-images-per-model
-class MoldImage(models.Model):
-    property = models.ForeignKey(Mold, on_delete=models.CASCADE, related_name='images')
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
+    #def get_absolute_url(self):
+        #return reverse('app:purchase_request_detail',args=[self.id])
 
     class Meta:
-        verbose_name = "تصویر"
-        verbose_name_plural = "تصویر ها"
-
-
-
-
-
-
-
-#------------------------------------------------------------------------------
-class Repair_request(models.Model):
-    Mold = models.ForeignKey(Mold ,on_delete=models.CASCADE, verbose_name = "قالب")
-    Applicant = models.CharField(max_length=50, null=True, blank=True, verbose_name = "درخواست کننده")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات مشکل وارد شده")
-    StartTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ درخواست")
-    CheckTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ بررسی")
-    TestTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ تست")
-    EndTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ اتمام")
-    CHOICES = (('به اتمام رسیده','به اتمام رسیده'), ('نامشخص','نامشخص'), ('رد شده','رد شده'))
-    Status=models.CharField(max_length=20,choices=CHOICES, default='نامشخص', verbose_name = "وضعیت")
-
-    def __str__(self):
-      return str(self.Mold)
-
-    def get_absolute_url(self):
-        return reverse('app:repair_req_detail',args=[self.id])
-
-    class Meta:
-        verbose_name = "درخواست تعمیر"
-        verbose_name_plural = "درخواست تعمیرات"
-
-
-class RepairImage(models.Model):
-    property = models.ForeignKey(Repair_request, on_delete=models.CASCADE, related_name='images')
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
-
-    class Meta:
-        verbose_name = "تصویر مشکل"
-        verbose_name_plural = "تصویر های مشکل"
-
-
-
-
-
-
-#------------------------------------------------------------------------------
-class Repair_operation(models.Model):
-    Request = models.ForeignKey(Repair_request ,on_delete=models.CASCADE, verbose_name = "برای درخواست")
-    CHOICES = ( ('اول','اول'), ('دوم','دوم'), ('سوم','سوم'), ('چهارم','چهارم'), ('پنجم','پنجم'), ('ششم','ششم'), ('هفتم','هفتم'), ('هشتم','هشتم'), ('نهم','نهم'), ('دهم','دهم') )
-    Step=models.CharField(max_length=20,choices=CHOICES, verbose_name = "گام")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات عملیات تعمیر")
-
-
-    def __str__(self):
-      return "گام : " + str(self.Step) + " درخواست تعمیر : " + str(self.Request)
-
-    def get_absolute_url(self):
-        return reverse('app:repair_operation_detail',args=[self.id])
-
-    @property
-    def short_description(self):
-        return truncatechars(self.Description, 60)
-
-    class Meta:
-        verbose_name = " عملیات تعمیر "
-        verbose_name_plural = " عملیات تعمیرات "
-
-class OperationImage(models.Model):
-    property = models.ForeignKey(Repair_operation, on_delete=models.CASCADE, related_name='images')
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
-
-    class Meta:
-        verbose_name = "تصویر عملیات"
-        verbose_name_plural = "تصاویر عملیات"
+        verbose_name = "درخواست خرید"
+        verbose_name_plural = "درخواست های خرید"
 
 
 
@@ -277,77 +131,4 @@ class OperationImage(models.Model):
 
 
 
-#------------------------------------------------------------------------------
-class Manufacture_request(models.Model):
-    Mold = models.ForeignKey(Mold ,on_delete=models.CASCADE, verbose_name = "قالب")
-    Applicant = models.CharField(max_length=50, null=True, blank=True, verbose_name = "درخواست کننده")
-    Progress_bar = models.IntegerField(default='1', null=True, blank=True,validators=[MinValueValidator(1),MaxValueValidator(100)], verbose_name = "درصد پیشرفت" )
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر آخرین وضعیت ساخت")
-    Description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
-    StartTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ درخواست")
-    CheckTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ بررسی")
-    TestTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ تست")
-    EndTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ اتمام")
-    CHOICES = (('به اتمام رسیده','به اتمام رسیده'), ('نامشخص','نامشخص'), ('رد شده','رد شده'))
-    Status=models.CharField(max_length=20,choices=CHOICES, default='نامشخص', verbose_name = "وضعیت")
-
-
-    def __str__(self):
-      return str(self.Mold)
-
-    def get_absolute_url(self):
-        return reverse('app:manufacture_req_detail',args=[self.id])
-
-    class Meta:
-        verbose_name = "درخواست ساخت قاب"
-        verbose_name_plural = "درخواست های ساخت قالب"
-
-
-
-
-#------------------------------------------------------------------------------
-class Component_request(models.Model):
-    Applicant = models.CharField(max_length=50, null=True, blank=True, verbose_name = "درخواست کننده")
-    Description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "شرح درخواست")
-    StartTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ درخواست")
-    CheckTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ بررسی")
-    TestTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ تست")
-    EndTime = models.DateField(null=True, blank=True, verbose_name = "تاریخ اتمام")
-    Progress_bar = models.IntegerField(default='1', null=True, blank=True,validators=[MinValueValidator(1),MaxValueValidator(100)], verbose_name = "درصد پیشرفت" )
-    CHOICES = (('به اتمام رسیده','به اتمام رسیده'), ('نامشخص','نامشخص'), ('رد شده','رد شده'))
-    Status=models.CharField(max_length=20,choices=CHOICES, default='نامشخص', verbose_name = "وضعیت")
-
-    @property
-    def short_description(self):
-        return truncatechars(self.Description, 40)
-
-    def __str__(self):
-        return str(self.short_description)
-
-    def get_absolute_url(self):
-        return reverse('app:component_req_detail',args=[self.id])
-
-
-
-    class Meta:
-        verbose_name = "درخواست ساخت"
-        verbose_name_plural = "درخواست های ساخت"
-
-class ComponentImage(models.Model):
-    property = models.ForeignKey(Component_request, on_delete=models.CASCADE, related_name='images')
-    Image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
-
-    class Meta:
-        verbose_name = "تصویر ساخت"
-        verbose_name_plural = "تصاویر ساخت"
-
-
-
-
-
-
-
-
-
-
-#-------------------------------------------------------- by Nima Dorostkar ---
+# End
