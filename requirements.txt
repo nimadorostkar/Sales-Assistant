@@ -1,0 +1,17 @@
+Django
+asgiref
+autopep8
+pycodestyle
+pytz
+sqlparse
+Unipath
+dj-database-url
+python-decouple
+gunicorn
+whitenoise
+Pillow
+django-allauth
+django-bootstrap-form
+django-import-export
+django-mptt
+django-jalali-date
