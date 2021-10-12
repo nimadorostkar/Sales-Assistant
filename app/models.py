@@ -69,6 +69,30 @@ class Buyers(models.Model):
 
 
 
+#------------------------------------------------------------------------------
+class Category(MPTTModel):
+    name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',verbose_name = "والد")
+
+
+    class MPTTMeta:
+        level_attr = 'mptt_level'
+        order_insertion_by = ['name']
+
+    class Meta:
+        verbose_name = "دسته بندی"
+        verbose_name_plural = "دسته بندی ها"
+
+    def get_absolute_url(self):
+        return reverse('app:category_detail',args=[self.id])
+
+    def __unicode__(self):
+        return u"%s" % (self.name)
+
+    def __str__(self):
+        return str(self.name)
+
+
 
 
 #------------------------------------------------------------------------------
@@ -77,6 +101,7 @@ class Product(models.Model):
     code = models.CharField(max_length=40, verbose_name = "کد")
     qty_in_box = models.IntegerField(verbose_name = "تعداد در کارتن")
     price = models.CharField(max_length=40, verbose_name = "قیمت")
+    category = models.ForeignKey(Category ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "دسته بندی")
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
     image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
 
@@ -87,7 +112,7 @@ class Product(models.Model):
 
     @property
     def price_display(self):
-        return "تومان %s" % self.price
+        return "ریال %s" % self.price
 
     #def get_absolute_url(self):
         #return reverse('app:product_detail',args=[self.id])
@@ -109,9 +134,13 @@ class Purchase_request(models.Model):
     qty = models.IntegerField(verbose_name = "تعداد" )
     buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")
     description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
+    CHOICES1 = ( ('نقدی پای بار','نقدی پای بار'), ('چک یک ماهه','چک یک ماهه'), ('چک دو ماهه','چک دو ماهه'), ('چک سه ماهه','چک سه ماهه') )
+    method = models.CharField(max_length=30,choices=CHOICES1, verbose_name = "روش تسویه")
+    discount = models.IntegerField(default='0',validators=[MinValueValidator(0),MaxValueValidator(100)], verbose_name = "درصد تخفیف" )
     date = models.DateField(auto_now_add=True, verbose_name = "تاریخ")
-    CHOICES = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
-    Status=models.CharField(max_length=20,choices=CHOICES, default='جدید', verbose_name = "وضعیت")
+    CHOICES2 = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
+    status= models.CharField(max_length=20,choices=CHOICES2, default='جدید', verbose_name = "وضعیت")
+
 
 
     def __str__(self):
