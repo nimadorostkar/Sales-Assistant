@@ -145,7 +145,7 @@ def purchase_request(request):
     total_req = models.Manufacture_request.objects.all().count()
     done_req = models.Manufacture_request.objects.filter(Status='به اتمام رسیده').count()
     manufacture_requests = models.Manufacture_request.objects.all().order_by("-StartTime")
-    return render(request, 'manufacture_req.html', {'manufacture_requests': manufacture_requests,
+    return render(request, 'purchase_request.html', {'manufacture_requests': manufacture_requests,
     'reject_req':reject_req,
     'total_req':total_req,
     'done_req':done_req
@@ -156,7 +156,7 @@ def purchase_request(request):
 def purchase_request_detail(request, id):
     manufacture_request = get_object_or_404(models.Manufacture_request, id=id)
     context = {'manufacture_request':manufacture_request}
-    return render(request, 'manufacture_req_detail.html', context)
+    return render(request, 'purchase_request_detail.html', context)
 
 
 
