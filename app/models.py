@@ -1,4 +1,5 @@
 from django.db import models
+from django_jalali.db import models as jmodels
 from django.contrib.auth.models import User
 from django.utils.html import format_html
 from django.urls import reverse
@@ -112,7 +113,7 @@ class Product(models.Model):
 
     @property
     def price_display(self):
-        return "ریال %s" % self.price
+        return "%s ریال " % self.price
 
     def image_tag(self):
         return format_html("<img width=50 src='{}'>".format(self.image.url))
@@ -140,14 +141,15 @@ class Purchase_request(models.Model):
     CHOICES1 = ( ('نقدی پای بار','نقدی پای بار'), ('چک یک ماهه','چک یک ماهه'), ('چک دو ماهه','چک دو ماهه'), ('چک سه ماهه','چک سه ماهه') )
     method = models.CharField(max_length=30,choices=CHOICES1, verbose_name = "روش تسویه")
     discount = models.IntegerField(default='0',validators=[MinValueValidator(0),MaxValueValidator(100)], verbose_name = "درصد تخفیف" )
-    date = models.DateField(auto_now_add=True, verbose_name = "تاریخ")
+    date = jmodels.jDateField(auto_now_add=True, verbose_name = "تاریخ")
     CHOICES2 = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
     status= models.CharField(max_length=20,choices=CHOICES2, default='جدید', verbose_name = "وضعیت")
 
 
 
     def __str__(self):
-        return str(self.qty +" عدد "+ self.product +" برای "+ self.buyer +" در تاریخ "+ self.date )
+        return str(self.qty) + ' عدد ' + self.product.name + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
+
 
     def image_tag(self):
         return format_html("<img width=50 src='{}'>".format(self.product.image.url))
