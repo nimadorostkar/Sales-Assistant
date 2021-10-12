@@ -137,25 +137,24 @@ def buyer_detail(request, id):
 
 
 
-
 #------------------------------------------------------------------------------
 @login_required()
 def purchase_request(request):
-    reject_req = models.Manufacture_request.objects.filter(Status='رد شده').count()
-    total_req = models.Manufacture_request.objects.all().count()
-    done_req = models.Manufacture_request.objects.filter(Status='به اتمام رسیده').count()
-    manufacture_requests = models.Manufacture_request.objects.all().order_by("-StartTime")
-    return render(request, 'purchase_request.html', {'manufacture_requests': manufacture_requests,
-    'reject_req':reject_req,
+    new_req = models.Purchase_request.objects.filter(status='جدید').count()
+    total_req = models.Purchase_request.objects.all().count()
+    checked_req = models.Purchase_request.objects.filter(status='برسی شده').count()
+    purchase_requests = models.Purchase_request.objects.all().order_by("-date")
+    return render(request, 'purchase_request.html', {'purchase_requests': purchase_requests,
+    'new_req':new_req,
     'total_req':total_req,
-    'done_req':done_req
+    'checked_req':checked_req
     })
 
 
 @login_required()
 def purchase_request_detail(request, id):
-    manufacture_request = get_object_or_404(models.Manufacture_request, id=id)
-    context = {'manufacture_request':manufacture_request}
+    purchase_request = get_object_or_404(models.Purchase_request, id=id)
+    context = {'purchase_request':purchase_request}
     return render(request, 'purchase_request_detail.html', context)
 
 
