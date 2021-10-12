@@ -14,7 +14,7 @@
   <div class="col-md-12">
     <div class="card card-lavender">
       <div class="card-header">
-        <h3 class="card-title" dir="rtl" align="center"> سازنده ها </h3>
+        <h3 class="card-title" dir="rtl" align="center"> خریداران </h3>
       </div>
     </div>
   </div>
@@ -36,19 +36,17 @@
           <table class="table tablesorter text-center" dir="rtl" align="center">
             <thead class="text-primary">
               <tr class="bold">
-                <th>
-                  سازنده
-                </th>
-                <th>
-                   توضیحات
-                </th>
+                <th> نام خریدار </th>
+                <th> شماره تلفن </th>
+                <th> آدرس </th>
               </tr>
             </thead>
             <tbody>
-              {% for Manufacturer in manufacturers %}
+              {% for Buyers in buyers %}
               <tr>
-                <td> <a href="{{ Manufacturer.get_absolute_url }}">  {{ Manufacturer.Name }} </a> </td>
-                <td> {{ Manufacturer.Description|slice:":100" }}.. </td>
+                <td> <a href="{{ Buyers.get_absolute_url }}">  {{ Buyers.name }} </a> </td>
+                <td> {{ Buyers.phone_number }} </td>
+                <td> {{ Buyers.address}} </td>
               </tr>
               {% endfor%}
             </tbody>
