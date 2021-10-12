@@ -12,13 +12,13 @@
   <div class="col-md-12">
     <div class="card card-lavender">
       <div class="card-header">
-        <h3 class="card-title" dir="rtl" align="center"> درخواست های ساخت قالب  </h3>
+        <h3 class="card-title" dir="rtl" align="center"> درخواست های خرید </h3>
       </div>
     </div>
   </div>
 </div>
 
-<p dir="rtl" align="right">    کل: {{ total_req }} |  رد شده: {{ reject_req }} | به اتمام رسیده: {{ done_req }} </p> <br>
+<p dir="rtl" align="right">    کل: {{ total_req }} |   جدید: {{ new_req }} |  برسی شده: {{ checked_req }} </p> <br>
 
 
 <div class="row">
@@ -30,37 +30,27 @@
           <table class="table tablesorter text-center" id="">
             <thead class=" text-primary">
               <tr class="bold">
-                <th>
-                   قالب
-                </th>
-                <th>
-                  درخواست کننده
-                </th>
-                <th>
-                  تاریخ درخواست
-                </th>
-                <th>
-                  وضعیت
-                </th>
-                <th>
-                  درصد پیشرفت
-                </th>
+                <th> محصول </th>
+                <th> تعداد </th>
+                <th> خریدار </th>
+                <th> روش تسویه </th>
+                <th> تاریخ </th>
+                <th> وضعیت </th>
               </tr>
             </thead>
             <tbody>
-            {% for Manufacture_request in manufacture_requests %}
-              {% if Manufacture_request.Status == 'به اتمام رسیده'  %}
-               <tr style="background-color:#0eef0e33;">
-              {% elif Manufacture_request.Status == 'رد شده' %}
-               <tr style="background-color:#ff00002e;">
+            {% for Purchase_request in purchase_requests %}
+              {% if Purchase_request.status == 'جدید' %}
+               <tr style="background-color:#f98f223d;">
               {% else %}
                <tr>
               {% endif %}
-                <td><a href="{{ Manufacture_request.get_absolute_url }}"> ساخت {{ Manufacture_request.Mold }} </a></td>
-                <td> {{ Manufacture_request.Applicant }} </td>
-                <td> {{ Manufacture_request.StartTime|to_jalali:'%Y/%m/%d' }} </td>
-                <td> {{ Manufacture_request.Status }} </td>
-                <td> <progress value="{{ Manufacture_request.Progress_bar }}" max="100"> </progress> {{ Manufacture_request.Progress_bar }}% </td>
+                <td><a href="{{ Purchase_request.get_absolute_url }}"> {{ Purchase_request.product }} </a></td>
+                <td> {{ Purchase_request.qty }} </td>
+                <td> {{ Purchase_request.buyer }} </td>
+                <td> {{ Purchase_request.method }} </td>
+                <td> {{ Purchase_request.date }} </td>
+                <td> {{ Purchase_request.status }} </td>
               </tr>
             {% endfor %}
             </tbody>
