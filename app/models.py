@@ -152,8 +152,8 @@ class Purchase_request(models.Model):
     def image_tag(self):
         return format_html("<img width=50 src='{}'>".format(self.product.image.url))
 
-    #def get_absolute_url(self):
-        #return reverse('app:purchase_request_detail',args=[self.id])
+    def get_absolute_url(self):
+        return reverse('app:purchase_request_detail',args=[self.id])
 
     class Meta:
         verbose_name = "درخواست خرید"

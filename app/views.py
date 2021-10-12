@@ -140,7 +140,7 @@ def buyer_detail(request, id):
 
 #------------------------------------------------------------------------------
 @login_required()
-def manufacture_req(request):
+def purchase_request(request):
     reject_req = models.Manufacture_request.objects.filter(Status='رد شده').count()
     total_req = models.Manufacture_request.objects.all().count()
     done_req = models.Manufacture_request.objects.filter(Status='به اتمام رسیده').count()
@@ -153,7 +153,7 @@ def manufacture_req(request):
 
 
 @login_required()
-def manufacture_req_detail(request, id):
+def purchase_request_detail(request, id):
     manufacture_request = get_object_or_404(models.Manufacture_request, id=id)
     context = {'manufacture_request':manufacture_request}
     return render(request, 'manufacture_req_detail.html', context)
