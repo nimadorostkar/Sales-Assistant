@@ -39,11 +39,11 @@
             <tbody>
             {% for Product in products %}
               <tr>
-                <td><a href="{{ Product.get_absolute_url }}"> {{ Product.name }} </a></td>
+                <td> <a href="{{ Product.get_absolute_url }}"> {{ Product.name }} </a> </td>
                 <td> {{ Product.code }} </td>
-                <td> {{ Product.qty_in_box }} </td>
-                <td> {{ Product.price }} </td>
-                <td> {{ Product.category }} </td>
+                <td> {{ Product.qty_in_box }} عدد </td>
+                <td> {{ Product.price }} ریال </td>
+                <td> <a href="{{ Product.category.get_absolute_url }}">{{ Product.category }} </a> </td>
                 <td>
                   <div class="photo">
                      <img src="{{ Product.image.url }}">
