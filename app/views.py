@@ -82,7 +82,7 @@ def search(request):
 @login_required()
 def product(request):
     products = models.Product.objects.all()
-    context = {'product':product}
+    context = {'products':products}
     return render(request, 'products.html', context)
 
 
