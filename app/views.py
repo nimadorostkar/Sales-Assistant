@@ -79,18 +79,16 @@ def search(request):
 
 #------------------------------------------------------------------------------
 @login_required()
-def mold(request):
-    molds = models.Mold.objects.all()
-    molds_img = models.MoldImage.objects.all()
-    return render(request, 'mold.html', {'molds': molds, 'molds_img':molds_img})
+def product(request):
+    products = models.Product.objects.all()
+    return render(request, 'products.html', {'products': products})
 
 
 @login_required()
-def mold_detail(request, id):
-    mold = get_object_or_404(models.Mold, id=id)
-    mold_img = models.MoldImage.objects.all()
-    context = {'mold':mold, 'mold_img':mold_img}
-    return render(request, 'mold_detail.html', context)
+def product_detail(request, id):
+    product = get_object_or_404(models.Product, id=id)
+    context = {'product':product}
+    return render(request, 'product_detail.html', context)
 
 
 

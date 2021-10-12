@@ -7,11 +7,11 @@ app_name='app'
 
 urlpatterns = [
     # The home page
-    path('', views.mold, name='mold'),
+    path('', views.product, name='product'),
 
-    # Molds
-    path('mold', views.mold, name='mold'),
-    path('mold_detail/<int:id>/',views.mold_detail,name='mold_detail'),
+    # Product
+    path('product', views.product, name='product'),
+    path('product_detail/<int:id>/',views.product_detail,name='product_detail'),
 
     # Category
     path('category', views.category, name='category'),
@@ -40,5 +40,5 @@ urlpatterns = [
 
     # Other
     path('profile', views.profile, name='profile'),
-    path('search',views.search,name='search'), 
+    path('search',views.search,name='search'),
     ]

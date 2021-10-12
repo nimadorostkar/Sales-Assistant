@@ -117,8 +117,8 @@ class Product(models.Model):
     def image_tag(self):
         return format_html("<img width=50 src='{}'>".format(self.image.url))
 
-    #def get_absolute_url(self):
-        #return reverse('app:product_detail',args=[self.id])
+    def get_absolute_url(self):
+        return reverse('app:product_detail',args=[self.id])
 
     class Meta:
         verbose_name = "محصول"
