@@ -51,7 +51,7 @@ class ProductAdmin(ImportExportModelAdmin):
     list_display = ('name', 'code', 'qty_in_box', 'price_display', 'category', 'image_tag')
     list_filter = ("category", "qty_in_box")
     search_fields = ['name', 'code']
-    raw_id_fields = ('category')
+    raw_id_fields = ('category',)
 
 admin.site.register(models.Product, ProductAdmin)
 
