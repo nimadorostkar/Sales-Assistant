@@ -17,26 +17,16 @@ urlpatterns = [
     path('category', views.category, name='category'),
     path('category_detail/<int:id>/',views.category_detail,name='category_detail'),
 
-    # Manufacturer
-    path('manufacturer', views.manufacturer, name='manufacturer'),
-    path('manufacturer_detail/<int:id>/',views.manufacturer_detail,name='manufacturer_detail'),
+    # Buyers
+    path('buyers', views.buyers, name='buyers'),
+    path('buyer_detail/<int:id>/',views.buyer_detail,name='buyer_detail'),
 
-    # Product
-    path('product', views.product, name='product'),
-    path('product_detail/<int:id>/',views.product_detail,name='product_detail'),
+
 
     # Manufacture Request
     path('manufacture_req', views.manufacture_req, name='manufacture_req'),
     path('manufacture_req_detail/<int:id>/',views.manufacture_req_detail,name='manufacture_req_detail'),
 
-    # Repair request
-    path('repair_req', views.repair_req, name='repair_req'),
-    path('repair_req_detail/<int:id>/',views.repair_req_detail,name='repair_req_detail'),
-    path('repair_operation_detail/<int:id>/',views.repair_operation_detail,name='repair_operation_detail'),
-
-    # Component Request
-    path('component_req', views.component_req, name='component_req'),
-    path('component_req_detail/<int:id>/',views.component_req_detail,name='component_req_detail'),
 
     # Other
     path('profile', views.profile, name='profile'),

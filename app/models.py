@@ -56,10 +56,10 @@ class Buyers(models.Model):
 
 
     def __str__(self):
-      return str(self.name)
+        return str(self.name)
 
-    #def get_absolute_url(self):
-        #return reverse('app:buyer_detail',args=[self.id])
+    def get_absolute_url(self):
+        return reverse('app:buyer_detail',args=[self.id])
 
     class Meta:
         verbose_name = "خریدار"

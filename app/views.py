@@ -77,6 +77,7 @@ def search(request):
 
 
 
+
 #------------------------------------------------------------------------------
 @login_required()
 def product(request):
@@ -89,6 +90,8 @@ def product_detail(request, id):
     product = get_object_or_404(models.Product, id=id)
     context = {'product':product}
     return render(request, 'product_detail.html', context)
+
+
 
 
 
@@ -112,39 +115,25 @@ def category_detail(request, id):
 
 
 
-#------------------------------------------------------------------------------
-@login_required()
-def manufacturer(request):
-    manufacturers = models.Manufacturer.objects.all()
-    return render(request, 'manufacturer.html', {'manufacturers': manufacturers})
-
-
-@login_required()
-def manufacturer_detail(request, id):
-    manufacturer = get_object_or_404(models.Manufacturer, id=id)
-    molds = models.Mold.objects.all()
-    molds_img = models.MoldImage.objects.all()
-    context = {'manufacturer':manufacturer, 'molds':molds, 'molds_img':molds_img}
-    return render(request, 'manufacturer_detail.html', context)
-
-
-
 
 
 #------------------------------------------------------------------------------
 @login_required()
-def product(request):
+def buyers(request):
+    buyers = models.Buyers.objects.all()
+    return render(request, 'buyers.html', {'buyers': buyers})
+
+
+@login_required()
+def buyer_detail(request, id):
+    buyer = get_object_or_404(models.Buyers, id=id)
     products = models.Product.objects.all()
-    return render(request, 'product.html', {'products': products})
+    context = {'manufacturer':manufacturer, 'molds':molds, 'molds_img':molds_img}
+    return render(request, 'buyer_detail.html', context)
 
 
-@login_required()
-def product_detail(request, id):
-    product = get_object_or_404(models.Product, id=id)
-    molds = models.Mold.objects.all()
-    molds_img = models.MoldImage.objects.all()
-    context = {'product':product, 'molds':molds, 'molds_img':molds_img}
-    return render(request, 'product_detail.html', context)
+
+
 
 
 
@@ -173,62 +162,8 @@ def manufacture_req_detail(request, id):
 
 
 
-#------------------------------------------------------------------------------
-@login_required()
-def repair_req(request):
-    reject_req = models.Repair_request.objects.filter(Status='رد شده').count()
-    total_req = models.Repair_request.objects.all().count()
-    done_req = models.Repair_request.objects.filter(Status='به اتمام رسیده').count()
-    repair_requests = models.Repair_request.objects.all().order_by("-StartTime")
-    repair_img = models.RepairImage.objects.all()
-    return render(request, 'repair_req.html', {'repair_requests': repair_requests,
-    "repair_img":repair_img,
-    'reject_req':reject_req,
-    'total_req':total_req,
-    'done_req':done_req
-    })
 
 
-@login_required()
-def repair_req_detail(request, id):
-    repair_request = get_object_or_404(models.Repair_request, id=id)
-    repair_img = models.RepairImage.objects.all()
-    repair_operation = models.Repair_operation.objects.all()
-    operation_img = models.OperationImage.objects.all()
-    context = {'repair_request':repair_request, 'repair_img':repair_img, 'repair_operation':repair_operation, 'operation_img':operation_img}
-    return render(request, 'repair_req_detail.html', context)
-
-@login_required()
-def repair_operation_detail(request, id):
-    operation_detail = get_object_or_404(models.Repair_operation, id=id)
-    operation_img = models.OperationImage.objects.all()
-    context = {'operation_detail':operation_detail, 'operation_img':operation_img}
-    return render(request, 'repair_operation_detail.html', context)
-
-
-
-
-
-#------------------------------------------------------------------------------
-@login_required()
-def component_req(request):
-    reject_req = models.Component_request.objects.filter(Status='رد شده').count()
-    total_req = models.Component_request.objects.all().count()
-    done_req = models.Component_request.objects.filter(Status='به اتمام رسیده').count()
-    component_requests = models.Component_request.objects.all().order_by("-StartTime")
-    return render(request, 'component_req.html', {'component_requests': component_requests,
-    'reject_req':reject_req,
-    'total_req':total_req,
-    'done_req':done_req
-    })
-
-
-@login_required()
-def component_req_detail(request, id):
-    component_request = get_object_or_404(models.Component_request, id=id)
-    component_img = models.ComponentImage.objects.all()
-    context = {'component_request':component_request, 'component_img':component_img}
-    return render(request, 'component_req_detail.html', context)
 
 
 
