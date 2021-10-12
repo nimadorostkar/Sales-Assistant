@@ -114,6 +114,9 @@ class Product(models.Model):
     def price_display(self):
         return "ریال %s" % self.price
 
+    def image_tag(self):
+        return format_html("<img width=50 src='{}'>".format(self.image.url))
+
     #def get_absolute_url(self):
         #return reverse('app:product_detail',args=[self.id])
 
@@ -145,6 +148,9 @@ class Purchase_request(models.Model):
 
     def __str__(self):
         return str(self.qty +" عدد "+ self.product +" برای "+ self.buyer +" در تاریخ "+ self.date )
+
+    def image_tag(self):
+        return format_html("<img width=50 src='{}'>".format(self.product.image.url))
 
     #def get_absolute_url(self):
         #return reverse('app:purchase_request_detail',args=[self.id])
