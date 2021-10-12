@@ -15,28 +15,28 @@
         <ul class="nav">
         {% if user.is_authenticated %}
 
-          <li class="{% if 'app:product' in segment %} active {% endif %}">
+          <li class="{% if request.path == '/product' %} active {% endif %}">
             <a href="{% url 'app:product' %}">
               <i class="tim-icons icon-app"></i>
               <p> محصولات </p>
             </a>
           </li>
 
-          <li class="{% if 'app:purchase_request' in segment %} active {% endif %}">
+          <li class="{% if request.path == '/purchase_request' %} active {% endif %}">
             <a href="{% url 'app:purchase_request' %}">
               <i class="tim-icons icon-notes"></i>
               <p> درخواست های خرید </p>
             </a>
           </li>
 
-          <li class="{% if 'app:buyers' in segment %} active {% endif %}">
+          <li class="{% if request.path == '/buyers' %} active {% endif %}">
             <a href="{% url 'app:buyers' %}">
               <i class="tim-icons icon-single-02"></i>
               <p> خریداران </p>
             </a>
           </li>
 
-          <li class="{% if 'app:category' in segment %} active {% endif %}">
+          <li class="{% if request.path == '/category' %} active {% endif %}">
             <a href="{% url 'app:category' %}">
               <i class="tim-icons icon-align-center"></i>
               <p> دسته بندی </p>
@@ -44,7 +44,7 @@
           </li>
 
 
-          <li class="{% if 'page-user' in segment %} active {% endif %}">
+          <li class="{% if request.path == '/profile' %} active {% endif %}">
             <a href="{% url 'app:profile' %}">
               <i class="tim-icons icon-badge"></i>
               <p> پروفایل </p>
