@@ -15,38 +15,24 @@
         <ul class="nav">
         {% if user.is_authenticated %}
 
-          <li class="{% if 'app:mold' in segment %} active {% endif %}">
-            <a href="{% url 'app:mold' %}">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p> قالب ها </p>
+          <li class="{% if 'app:product' in segment %} active {% endif %}">
+            <a href="{% url 'app:product' %}">
+              <i class="tim-icons icon-app"></i>
+              <p> محصولات </p>
             </a>
           </li>
 
-          <li class="{% if 'app:manufacture_req' in segment %} active {% endif %}">
-            <a href="{% url 'app:manufacture_req' %}">
+          <li class="{% if 'app:purchase_request' in segment %} active {% endif %}">
+            <a href="{% url 'app:purchase_request' %}">
               <i class="tim-icons icon-notes"></i>
-              <p>درخواست ساخت قالب</p>
+              <p> درخواست های خرید </p>
             </a>
           </li>
 
-          <li class="{% if 'app:repair_req' in segment %} active {% endif %}">
-            <a href="{% url 'app:repair_req' %}">
-              <i class="tim-icons icon-settings"></i>
-              <p> درخواست تعمیر قالب </p>
-            </a>
-          </li>
-
-          <li class="{% if 'app:component_req' in segment %} active {% endif %}">
-            <a href="{% url 'app:component_req' %}">
-              <i class="tim-icons icon-components"></i>
-              <p> ساخت ها </p>
-            </a>
-          </li>
-
-          <li class="{% if 'app:manufacturer' in segment %} active {% endif %}">
-            <a href="{% url 'app:manufacturer' %}">
+          <li class="{% if 'app:buyers' in segment %} active {% endif %}">
+            <a href="{% url 'app:buyers' %}">
               <i class="tim-icons icon-single-02"></i>
-              <p> سازنده ها </p>
+              <p> خریداران </p>
             </a>
           </li>
 
@@ -54,13 +40,6 @@
             <a href="{% url 'app:category' %}">
               <i class="tim-icons icon-align-center"></i>
               <p> دسته بندی </p>
-            </a>
-          </li>
-
-          <li class="{% if 'app:product' in segment %} active {% endif %}">
-            <a href="{% url 'app:product' %}">
-              <i class="tim-icons icon-app"></i>
-              <p> محصولات  </p>
             </a>
           </li>
 
