@@ -13,6 +13,7 @@ from django.db import transaction
 from django.urls import reverse
 from django.db.models import Q
 import datetime
+from django.contrib.auth.decorators import user_passes_test
 
 
 
@@ -139,7 +140,7 @@ def buyer_detail(request, id):
 
 
 #------------------------------------------------------------------------------
-@login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def purchase_request(request):
     new_req = models.Purchase_request.objects.filter(status='جدید').count()
     total_req = models.Purchase_request.objects.all().count()
@@ -152,7 +153,7 @@ def purchase_request(request):
     })
 
 
-@login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def purchase_request_detail(request, id):
     purchase_request = get_object_or_404(models.Purchase_request, id=id)
     context = {'purchase_request':purchase_request}
