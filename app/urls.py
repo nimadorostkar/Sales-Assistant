@@ -22,4 +22,5 @@ urlpatterns = [
     # Other
     path('profile', views.profile, name='profile'),
     path('search',views.search,name='search'),
+    path('register_purchase_request',views.register_purchase_request,name='register_purchase_request'),
     ]

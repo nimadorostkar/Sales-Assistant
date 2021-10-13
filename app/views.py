@@ -167,6 +167,13 @@ def purchase_request_detail(request, id):
 
 
 
+#------------------------------------------------------------------------------
+@login_required()
+def register_purchase_request(request):
+    a = models.Purchase_request.objects.all()
+    return render(request, 'register_purchase_request.html', {'a':a})
+
+
 
 
 
