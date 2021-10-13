@@ -1,7 +1,7 @@
 from django.contrib import admin
 from . import models
 from django.contrib.admin.models import LogEntry
-from .models import Profile, Buyers, Category, Product, Purchase_request
+from .models import Profile, Buyers, Category, Product, Purchase_request, Product_qty
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportMixin
 from mptt.admin import MPTTModelAdmin, TreeRelatedFieldListFilter, DraggableMPTTAdmin
@@ -60,11 +60,24 @@ admin.site.register(models.Product, ProductAdmin)
 
 
 
+
+#------------------------------------------------------------------------------
+class Product_qtyAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
+    list_display = ('product','qty')
+    list_filter = ("product",)
+    search_fields = ['product',]
+    raw_id_fields = ('product',)
+
+admin.site.register(models.Product_qty, Product_qtyAdmin)
+
+
+
+
 #------------------------------------------------------------------------------
 class Purchase_requestAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
-    list_display = ('product','qty','buyer','method','discount','date','image_tag','status')
+    list_display = ('code','user','buyer','method','discount','date','status')
     list_filter = ("buyer", "method",'status','date')
-    search_fields = ['product', 'buyer']
+    search_fields = ['code', 'buyer']
     raw_id_fields = ('product','buyer')
 
 admin.site.register(models.Purchase_request, Purchase_requestAdmin)

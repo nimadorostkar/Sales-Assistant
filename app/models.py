@@ -131,11 +131,26 @@ class Product(models.Model):
 
 
 
+#------------------------------------------------------------------------------
+class Product_qty(models.Model):
+    product = models.ForeignKey(Product ,on_delete=models.CASCADE, verbose_name = "محصول")
+    qty = models.IntegerField(verbose_name = "تعداد" )
+
+    def __str__(self):
+        return str(self.qty) + ' عدد ' + self.product.name
+
+    class Meta:
+        verbose_name = "تعداد محصول"
+        verbose_name_plural = "تعداد محصول"
+
+
+
 
 #------------------------------------------------------------------------------
 class Purchase_request(models.Model):
-    product = models.ForeignKey(Product ,on_delete=models.CASCADE, verbose_name = "محصول")
-    qty = models.IntegerField(verbose_name = "تعداد" )
+    code = models.CharField(max_length=40, verbose_name = "شماره درخواست")
+    user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "کارشناس فروش")
+    product = models.ManyToManyField(Product_qty, verbose_name = "محصول و تعداد")
     buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")
     description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
     CHOICES1 = ( ('نقدی پای بار','نقدی پای بار'), ('چک یک ماهه','چک یک ماهه'), ('چک دو ماهه','چک دو ماهه'), ('چک سه ماهه','چک سه ماهه') )
@@ -148,11 +163,7 @@ class Purchase_request(models.Model):
 
 
     def __str__(self):
-        return str(self.qty) + ' عدد ' + self.product.name + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
-
-
-    def image_tag(self):
-        return format_html("<img width=50 src='{}'>".format(self.product.image.url))
+        return ' شماره درخواست ' + self.code + ' توسط ' + self.user + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
 
     def get_absolute_url(self):
         return reverse('app:purchase_request_detail',args=[self.id])
