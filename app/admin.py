@@ -60,17 +60,6 @@ admin.site.register(models.Product, ProductAdmin)
 
 
 
-'''
-#------------------------------------------------------------------------------
-class Product_qtyAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
-    list_display = ('product','qty')
-    list_filter = ("product",)
-    search_fields = ['product',]
-    raw_id_fields = ('product',)
-
-admin.site.register(models.Product_qty, Product_qtyAdmin)
-'''
-
 
 
 

@@ -131,8 +131,9 @@ def buyers(request):
 @login_required()
 def buyer_detail(request, id):
     buyer = get_object_or_404(models.Buyers, id=id)
-    products = ''
-    context = {'buyer':buyer, 'products':products}
+    buyer_requests = models.Purchase_request.objects.filter(buyer=buyer)
+    #product_qty = models.Product_qty.objects.filter(property=buyer_requests)
+    context = {'buyer':buyer, 'buyer_requests':buyer_requests}
     return render(request, 'buyer_detail.html', context)
 
 
