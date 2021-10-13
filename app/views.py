@@ -192,6 +192,24 @@ def register_buyer(request):
 @login_required()
 def register_purchase_request(request):
     a = models.Purchase_request.objects.all()
+
+    if request.method=="POST":
+
+        obj = Product_qty()
+        obj.product = request.POST['product']
+        obj.qty = request.POST['qty']
+        obj.save()
+
+        req = Purchase_request()
+        req.user = request.user
+        req.product = obj
+        req.buyer = request.POST['buyer']
+        req.method = request.POST['method']
+        req.discount = request.POST['discount']
+        req.description = request.POST['description']
+        req.save()
+
+
     return render(request, 'register_purchase_request.html', {'a':a})
 
 

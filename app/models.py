@@ -160,7 +160,6 @@ class Purchase_request(models.Model):
     status= models.CharField(max_length=20,choices=CHOICES2, default='جدید', verbose_name = "وضعیت")
 
 
-
     def __str__(self):
         return ' شماره درخواست ' + str(self.id) + ' توسط ' + self.user.username + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
 
