@@ -20,8 +20,6 @@
 
 
 
-
-
 <div class="row" align="right" dir="rtl">
 
   <div class="col-md-12">
@@ -64,6 +62,17 @@
   </div>
 
 </div>
+
+
+{% if purchase_request.status == 'جدید' %}
+ <div dir="rtl" align="right">
+    <button type="submit" class="btn btn-fill btn-primary"> ثبت درخواست </button>
+ </div>
+{% endif %}
+
+
+
+
 
 
 
