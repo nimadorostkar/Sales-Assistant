@@ -31,35 +31,20 @@
           <table class="table tablesorter text-center" id="">
             <thead class="text-primary">
               <tr class="bold">
-                <th>
-                  درخواست کننده
-                </th>
-                <th>
-                   تاریخ درخواست
-                </th>
-                <th>
-                  تاریخ بررسی
-                </th>
-                <th>
-                   تاریخ تست
-                </th>
-                <th>
-                   تاریخ اتمام
-                </th>
-                <th>
-                  وضعیت
-                </th>
+                <th> کارشناس فروش </th>
+                <th> خریدار </th>
+                <th> تاریخ </th>
+                <th> روش تسویه </th>
+                <th> وضعیت </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td> {{ purchase_request.Applicant }} </td>
-                <td> {{ purchase_request.StartTime|to_jalali:'%Y/%m/%d' }} </td>
-                <td> {{ purchase_request.CheckTime|to_jalali:'%Y/%m/%d' }} </td>
-                <td> {{ purchase_request.TestTime|to_jalali:'%Y/%m/%d' }} </td>
-                <td> {{ purchase_request.EndTime|to_jalali:'%Y/%m/%d' }} </td>
-                <td> {{ purchase_request.Status }} </td>
-              </tr>
+                <td> {{ purchase_request.user }} </td>
+                <td> <a href="{{ purchase_request.buyer.get_absolute_url }}"> {{ purchase_request.buyer }} </a> </td>
+                <td> {{ purchase_request.date }} </td>
+                <td> {{ purchase_request.method }} </td>
+                <td> {{ purchase_request.status }} </td>
             </tbody>
           </table>
         </div>
