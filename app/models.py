@@ -96,7 +96,9 @@ class Category(MPTTModel):
 
 
 
+
 #------------------------------------------------------------------------------
+#Unique code and name
 class Product(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
     code = models.CharField(max_length=40, verbose_name = "کد")

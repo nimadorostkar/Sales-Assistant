@@ -5,8 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import template
 from . import models
 from django.contrib.auth.models import User
-from .models import Profile, Buyers
-from .forms import ProfileForm, UserForm
+from .models import Profile, Buyers, Product_qty, Purchase_request
+from .forms import ProfileForm, UserForm, Product_qty_Form, Purchase_request_Form
 from itertools import chain
 from django.contrib.auth import get_user_model
 from django.db import transaction
@@ -194,26 +194,36 @@ def register_buyer(request):
 #------------------------------------------------------------------------------
 @login_required()
 def register_purchase_request(request):
-    products = models.Product.objects.all()
-    buyers = models.Buyers.objects.all()
-
+    #products = models.Product.objects.all()
+    #buyers = models.Buyers.objects.all()
     if request.method=="POST":
+        purchase_req_form = Purchase_request_Form(request.POST)
+        product_qty_form = Product_qty_Form(request.POST)
+        if purchase_req_form.is_valid() and product_qty_form.is_valid():
+            obj = Product_qty()
+            obj.product = product_qty_form.cleaned_data['product']
+            obj.qty = product_qty_form.cleaned_data['qty']
+            obj.save()
 
-        obj = Product_qty()
-        obj.product = request.POST['product']
-        obj.qty = request.POST['qty']
-        obj.save()
+            req = Purchase_request()
+            req.user = request.user
+            req.product = obj
+            req.buyer = purchase_req_form.cleaned_data['buyer']
+            req.method = purchase_req_form.cleaned_data['method']
+            req.discount = purchase_req_form.cleaned_data['discount']
+            req.description = purchase_req_form.cleaned_data['description']
+            req.save()
+            return render(request, 'register_purchase_request.html', {'purchase_req_form':purchase_req_form, 'product_qty_form':product_qty_form})
+    else:
+        purchase_req_form = Purchase_request_Form(request.POST)
+        product_qty_form = Product_qty_Form(request.POST)
+        return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers})
 
-        req = Purchase_request()
-        req.user = request.user
-        req.product = obj
-        req.buyer = request.POST['buyer']
-        req.method = request.POST['method']
-        req.discount = request.POST['discount']
-        req.description = request.POST['description']
-        req.save()
 
-    return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers})
+
+
+
+
 
 
 
