@@ -66,7 +66,7 @@
 
 {% if purchase_request.status == 'جدید' %}
  <div dir="rtl" align="right">
-     <form method="post" action="{% url 'app:purchase_request_detail' %}">
+     <form method="post" action="#">
        {% csrf_token %}
        <button type="submit" class="btn btn-fill btn-primary"> ثبت درخواست </button>
     </form>

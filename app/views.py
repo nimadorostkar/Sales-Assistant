@@ -158,9 +158,11 @@ def purchase_request(request):
 @user_passes_test(lambda u: u.is_superuser)
 def purchase_request_detail(request, id):
     purchase_request = get_object_or_404(models.Purchase_request, id=id)
-    context = {'purchase_request':purchase_request}
-    return render(request, 'purchase_request_detail.html', context)
-
+    if request.method=="POST":
+        obj = purchase_request
+        obj.status = 'برسی شده'
+        obj.save()
+    return render(request, 'purchase_request_detail.html', {'purchase_request':purchase_request})
 
 
 
