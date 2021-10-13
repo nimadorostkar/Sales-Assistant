@@ -16,6 +16,7 @@ urlpatterns = [
     # Buyers
     path('buyers', views.buyers, name='buyers'),
     path('buyer_detail/<int:id>/',views.buyer_detail,name='buyer_detail'),
+    path('register_buyer', views.register_buyer, name='register_buyer'),
     # Manufacture Request
     path('purchase_request', views.purchase_request, name='purchase_request'),
     path('purchase_request_detail/<int:id>/',views.purchase_request_detail,name='purchase_request_detail'),

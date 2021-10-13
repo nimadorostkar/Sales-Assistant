@@ -43,6 +43,15 @@
             </a>
           </li>
 
+          <li class="{% if request.path == '/register_buyer' %} active {% endif %}">
+            <a href="{% url 'app:register_buyer' %}">
+               <i class="tim-icons icon-pencil"></i>
+              <p> ثبت خریدار </p>
+            </a>
+          </li>
+
+
+
           <li class="{% if request.path == '/category' %} active {% endif %}">
             <a href="{% url 'app:category' %}">
               <i class="tim-icons icon-align-center"></i>
