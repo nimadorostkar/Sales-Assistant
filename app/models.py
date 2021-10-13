@@ -132,24 +132,9 @@ class Product(models.Model):
 
 
 #------------------------------------------------------------------------------
-class Product_qty(models.Model):
-    product = models.ForeignKey(Product ,on_delete=models.CASCADE, verbose_name = "محصول")
-    qty = models.IntegerField(verbose_name = "تعداد" )
-
-    def __str__(self):
-        return str(self.qty) + ' عدد ' + self.product.name
-
-    class Meta:
-        verbose_name = "تعداد محصول"
-        verbose_name_plural = "تعداد محصول"
-
-
-
-
-#------------------------------------------------------------------------------
 class Purchase_request(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "کارشناس فروش")
-    product = models.ManyToManyField(Product_qty, verbose_name = "محصول و تعداد")
+    #product = models.ManyToManyField(Product_qty, verbose_name = "محصول و تعداد")
     buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")
     description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
     CHOICES1 = ( ('نقدی پای بار','نقدی پای بار'), ('چک یک ماهه','چک یک ماهه'), ('چک دو ماهه','چک دو ماهه'), ('چک سه ماهه','چک سه ماهه') )
@@ -169,6 +154,19 @@ class Purchase_request(models.Model):
     class Meta:
         verbose_name = "درخواست خرید"
         verbose_name_plural = "درخواست های خرید"
+
+
+class Product_qty(models.Model):
+    property = models.ForeignKey(Purchase_request, on_delete=models.CASCADE, related_name='request' , verbose_name = "درخواست")
+    product = models.ForeignKey(Product ,on_delete=models.CASCADE, verbose_name = "محصول")
+    qty = models.IntegerField(verbose_name = "تعداد" )
+
+    def __str__(self):
+        return str(self.qty) + ' عدد ' + self.product.name
+
+    class Meta:
+        verbose_name = "تعداد محصول"
+        verbose_name_plural = "تعداد محصول"
 
 
 

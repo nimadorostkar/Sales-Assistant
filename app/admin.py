@@ -60,7 +60,7 @@ admin.site.register(models.Product, ProductAdmin)
 
 
 
-
+'''
 #------------------------------------------------------------------------------
 class Product_qtyAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
     list_display = ('product','qty')
@@ -69,16 +69,21 @@ class Product_qtyAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
     raw_id_fields = ('product',)
 
 admin.site.register(models.Product_qty, Product_qtyAdmin)
+'''
 
 
 
 
 #------------------------------------------------------------------------------
+class Product_qtyInline(admin.TabularInline):
+    model = Product_qty
+    extra = 1
 class Purchase_requestAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
     list_display = ('id','user','buyer','method','discount','date','status')
     list_filter = ("buyer", "method",'status','date', 'user')
     search_fields = ['id', 'buyer']
     raw_id_fields = ('product','buyer')
+    inlines = [ Product_qtyInline, ]
 
 admin.site.register(models.Purchase_request, Purchase_requestAdmin)
 
