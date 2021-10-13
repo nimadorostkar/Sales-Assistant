@@ -108,9 +108,8 @@ def category(request):
 @login_required()
 def category_detail(request, id):
     category = get_object_or_404(models.Category, id=id)
-    molds = models.Mold.objects.all()
-    molds_img = models.MoldImage.objects.all()
-    context = {'category':category, 'molds':molds, 'molds_img':molds_img}
+    products = models.Product.objects.filter(category=category)
+    context = {'category':category, 'products':products}
     return render(request, 'category_detail.html', context)
 
 
@@ -129,8 +128,8 @@ def buyers(request):
 @login_required()
 def buyer_detail(request, id):
     buyer = get_object_or_404(models.Buyers, id=id)
-    products = models.Product.objects.all()
-    context = {'manufacturer':manufacturer, 'molds':molds, 'molds_img':molds_img}
+    products = ''
+    context = {'buyer':buyer, 'products':products}
     return render(request, 'buyer_detail.html', context)
 
 

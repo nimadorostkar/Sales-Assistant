@@ -12,7 +12,7 @@
   <div class="col-md-12">
     <div class="card card-lavender">
       <div class="card-header">
-        <h2 class="card-title" dir="rtl" align="center"> سازنده؛ {{ manufacturer.Name }} </h2>
+        <h2 class="card-title" dir="rtl" align="center"> خریدار؛  {{ buyer.name }} </h2>
       </div>
     </div>
   </div>
@@ -26,58 +26,70 @@
 
 
 <div class="row">
+
+
+  <div class="col-md-12" dir="rtl" align="right">
+    <div class="card card-user">
+      <div class="card-header">
+        <h6 class="card-title" style="color:#8d39e4ad;"> اطلاعات کلی </h6>
+      </div>
+      <div class="card-body">
+        <table class="table tablesorter text-center" id="">
+          <thead class=" text-primary">
+            <tr class="bold">
+              <th> شماره تلفن </th>
+              <th> آدرس </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> {{ buyer.phone_number }} </td>
+              <td> {{ buyer.address }} </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div align="right" dir="rtl" class="card-description">
+          <p class="category"> {{ buyer.description|linebreaks }} </p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
   <div class="col-md-12">
     <div class="card" align="right" dir="rtl">
-      <div class="card-header"> لیست قالب های ساخته شده توسط {{ manufacturer.Name }} </div>
+      <div class="card-header"> موارد خریداری شده توسط {{ buyer.name }} </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table tablesorter text-center" id="">
             <thead class=" text-primary">
               <tr class="bold">
-                <th>
-                  نام قالب
-                </th>
-                <th>
-                  کد
-                </th>
-                <th>
-                  نوع قالب
-                </th>
-                <th>
-                  تعداد حفر
-                </th>
-                <th>
-                  سازنده
-                </th>
-                <th>
-                  دسته بندی
-                </th>
-                <th>
-                  تصویر
-                </th>
+                <th> نام کالا </th>
+                <th> کد </th>
+                <th> تعداد در کارتن </th>
+                <th> قیمت </th>
+                <th> دسته بندی </th>
+                <th> تصویر </th>
               </tr>
             </thead>
             <tbody>
-            {% for Mold in molds %}
-            {% if Mold.Manufacturer == manufacturer %}
+            {% for Product in products %}
               <tr>
-                <td><a href="{{ Mold.get_absolute_url }}"> {{ Mold.Name }} </a></td>
-                <td> {{ Mold.Code }} </td>
-                <td> {{ Mold.Type }} </td>
-                <td> {{ Mold.Cavities_qty }} </td>
-                <td> {{ Mold.Manufacturer }} </td>
-                <td> {{ Mold.Category }} </td>
+                <td> <a href="{{ Product.get_absolute_url }}"> {{ Product.name }} </a> </td>
+                <td> {{ Product.code }} </td>
+                <td> {{ Product.qty_in_box }} عدد </td>
+                <td> {{ Product.price }} ریال </td>
+                <td> <a href="{{ Product.category.get_absolute_url }}">{{ Product.category }} </a> </td>
                 <td>
                   <div class="photo">
-                   {% for MoldImage in molds_img %}
-                    {% if MoldImage.property == Mold %}
-                     <img src="{{ MoldImage.Image.url }}">
-                    {% endif %}
-                   {% endfor %}
+                     <img src="{{ Product.image.url }}">
                   </div>
                 </td>
               </tr>
-            {% endif %}
             {% endfor %}
             </tbody>
           </table>
