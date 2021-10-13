@@ -30,8 +30,8 @@
           <table class="table tablesorter text-center" id="">
             <thead class=" text-primary">
               <tr class="bold">
-                <th> محصول </th>
-                <th> تعداد </th>
+                <th> شماره درخواست </th>
+                <th> کارشناس فروش </th>
                 <th> خریدار </th>
                 <th> روش تسویه </th>
                 <th> تاریخ </th>
@@ -45,8 +45,8 @@
               {% else %}
                <tr>
               {% endif %}
-                <td><a href="{{ Purchase_request.get_absolute_url }}"> {{ Purchase_request.product }} </a></td>
-                <td> {{ Purchase_request.qty }} </td>
+                <td><a href="{{ Purchase_request.get_absolute_url }}"> {{ Purchase_request.id }} </a></td>
+                <td> {{ Purchase_request.user }} </td>
                 <td> {{ Purchase_request.buyer }} </td>
                 <td> {{ Purchase_request.method }} </td>
                 <td> {{ Purchase_request.date }} </td>

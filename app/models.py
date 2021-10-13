@@ -148,7 +148,6 @@ class Product_qty(models.Model):
 
 #------------------------------------------------------------------------------
 class Purchase_request(models.Model):
-    code = models.CharField(max_length=40, verbose_name = "شماره درخواست")
     user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "کارشناس فروش")
     product = models.ManyToManyField(Product_qty, verbose_name = "محصول و تعداد")
     buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")

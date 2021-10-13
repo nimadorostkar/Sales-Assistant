@@ -75,9 +75,9 @@ admin.site.register(models.Product_qty, Product_qtyAdmin)
 
 #------------------------------------------------------------------------------
 class Purchase_requestAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
-    list_display = ('code','user','buyer','method','discount','date','status')
+    list_display = ('id','user','buyer','method','discount','date','status')
     list_filter = ("buyer", "method",'status','date')
-    search_fields = ['code', 'buyer']
+    search_fields = ['id', 'buyer']
     raw_id_fields = ('product','buyer')
 
 admin.site.register(models.Purchase_request, Purchase_requestAdmin)
