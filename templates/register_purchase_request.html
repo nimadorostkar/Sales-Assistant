@@ -32,73 +32,58 @@
             <div class="col-md-3 pr-md-1">
               <div class="form-group">
                 <label> محصول </label>
-                <input name="product" type="text" class="form-control">
+                <select name="product"  class="form-control" data-live-search="true" data-live-search-style="begins" title="محصول">
+                  {% for Product in products %}
+                    <option> {{ Product }} </option>
+                  {% endfor %}
+                </select>
               </div>
             </div>
             <div class="col-md-4 px-md-1">
               <div class="form-group">
                 <label> تعداد </label>
-                <input name="qty" type="text" class="form-control">
+                <input name="qty" type="number" class="form-control">
               </div>
             </div>
             <div class="col-md-5 pl-md-1">
               <div class="form-group">
-                <label for="exampleInputEmail1"> آدرس ایمیل </label>
-                <input name="email" type="email" class="form-control">
+                <label for="exampleInputEmail1"> خریدار </label>
+                <select name="buyer"  class="form-control" data-live-search="true" data-live-search-style="begins" title="خریدار">
+                  {% for Buyers in buyers %}
+                    <option> {{ Buyers }} </option>
+                  {% endfor %}
+                </select>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 pr-md-1">
               <div class="form-group">
-                <label> نام </label>
-                <input name="first_name" type="text" class="form-control">
+                <label> روش تسویه </label>
+                <input name="method" type="text" class="form-control">
               </div>
             </div>
             <div class="col-md-6 pl-md-1">
               <div class="form-group">
-                <label> نام خانوادگی </label>
-                <input name="last_name" type="text" class="form-control">
+                <label> درصد تخفیف </label>
+                <input name="discount" type="text" class="form-control">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label> آدرس </label>
-                <input name="address" type="text" class="form-control" placeholder="Address">
+                <label> توضیحات </label>
+                <input name="description" type="text" class="form-control">
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6 pr-md-1">
-              <div class="form-group">
-                <label> شماره تماس </label>
-                <input name="phone" type="text" class="form-control" placeholder="City">
-              </div>
-            </div>
-            <div class="col-md-6 px-md-1">
-                <label> تصویر کاربری </label>
-                <input name="user_photo" type="file" class="form-control">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-md-1">
-              <div class="form-group">
-                <label> رمز عبور </label>
-                <input name="password1" type="password" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6 px-md-1">
-              <div class="form-group">
-                <label> تکرار رمز عبور </label>
-                <input name="password2" type="password" class="form-control">
-              </div>
-            </div>
-          </div>
+
+
           <div class="card-footer">
             <button type="submit" class="btn btn-fill btn-primary"> ذخیره </button>
           </div>
+
         </form>
       </div>
     </div>

@@ -132,7 +132,6 @@ def buyers(request):
 def buyer_detail(request, id):
     buyer = get_object_or_404(models.Buyers, id=id)
     buyer_requests = models.Purchase_request.objects.filter(buyer=buyer)
-    #product_qty = models.Product_qty.objects.filter(property=buyer_requests)
     context = {'buyer':buyer, 'buyer_requests':buyer_requests}
     return render(request, 'buyer_detail.html', context)
 
@@ -195,7 +194,8 @@ def register_buyer(request):
 #------------------------------------------------------------------------------
 @login_required()
 def register_purchase_request(request):
-    a = models.Purchase_request.objects.all()
+    products = models.Product.objects.all()
+    buyers = models.Buyers.objects.all()
 
     if request.method=="POST":
 
@@ -213,11 +213,7 @@ def register_purchase_request(request):
         req.description = request.POST['description']
         req.save()
 
-
-    return render(request, 'register_purchase_request.html', {'a':a})
-
-
-
+    return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers})
 
 
 

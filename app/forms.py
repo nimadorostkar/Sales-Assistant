@@ -26,18 +26,6 @@ class UserForm(UserCreationForm):
 
 
 
-class Purchase_requestForm(forms.ModelForm):
-	class Meta:
-		model = Purchase_request
-		fields = ['buyer','description','method','discount']
-
-class Product_qtyForm(forms.ModelForm):
-	class Meta:
-		model = Product_qty
-		fields = '__all__'
-
-
-
 
 
 
