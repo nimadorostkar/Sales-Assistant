@@ -137,7 +137,7 @@ def buyer_detail(request, id):
 
 
 
- 
+
 
 #------------------------------------------------------------------------------
 @user_passes_test(lambda u: u.is_superuser)

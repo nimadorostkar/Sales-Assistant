@@ -156,13 +156,14 @@ class Purchase_request(models.Model):
     method = models.CharField(max_length=30,choices=CHOICES1, verbose_name = "روش تسویه")
     discount = models.IntegerField(default='0',validators=[MinValueValidator(0),MaxValueValidator(100)], verbose_name = "درصد تخفیف" )
     date = jmodels.jDateField(auto_now_add=True, verbose_name = "تاریخ")
+    date_miladi = models.DateField(auto_now_add=True, verbose_name = "تاریخ میلادی")
     CHOICES2 = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
     status= models.CharField(max_length=20,choices=CHOICES2, default='جدید', verbose_name = "وضعیت")
 
 
 
     def __str__(self):
-        return ' شماره درخواست ' + self.code + ' توسط ' + self.user.username + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
+        return ' شماره درخواست ' + str(self.id) + ' توسط ' + self.user.username + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
 
     def get_absolute_url(self):
         return reverse('app:purchase_request_detail',args=[self.id])
