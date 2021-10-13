@@ -54,7 +54,9 @@
         <br><hr>
 
         <div class="card-header"> <h4> کالا های خریداری شده : </h4> </div>
-        {% for product in purchase_request.product.all %} <h5 class="category" align="center"> <a href="{{ product.product.get_absolute_url }}">{{ product }}</a><br> </h5>{% endfor %}
+        {% for Product_qty in product_qty %}
+          <h5 dir="rtl" align="center"> {{ Product_qty.qty }} <a href="{{ Product_qty.product.get_absolute_url }}">{{ Product_qty.product }}</a> </h5>
+        {% endfor %}
         <br>
 
       </div>

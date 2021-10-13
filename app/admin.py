@@ -78,11 +78,12 @@ admin.site.register(models.Product_qty, Product_qtyAdmin)
 class Product_qtyInline(admin.TabularInline):
     model = Product_qty
     extra = 1
+    raw_id_fields = ('product',)
 class Purchase_requestAdmin(ModelAdminJalaliMixin,ImportExportModelAdmin):
     list_display = ('id','user','buyer','method','discount','date','status')
     list_filter = ("buyer", "method",'status','date', 'user')
     search_fields = ['id', 'buyer']
-    raw_id_fields = ('product','buyer')
+    raw_id_fields = ('buyer',)
     inlines = [ Product_qtyInline, ]
 
 admin.site.register(models.Purchase_request, Purchase_requestAdmin)

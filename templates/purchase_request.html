@@ -47,7 +47,7 @@
               {% endif %}
                 <td><a href="{{ Purchase_request.get_absolute_url }}"> {{ Purchase_request.id }} </a></td>
                 <td> {{ Purchase_request.user }} </td>
-                <td> {{ Purchase_request.buyer }} </td>
+                <td><a href="{{ Purchase_request.buyer.get_absolute_url }}"> {{ Purchase_request.buyer }} </td>
                 <td> {{ Purchase_request.method }} </td>
                 <td> {{ Purchase_request.date }} </td>
                 <td> {{ Purchase_request.status }} </td>
