@@ -11,102 +11,68 @@
   <div class="col-md-12">
     <div class="card card-lavender">
       <div class="card-header">
-        <h3 class="card-title" dir="rtl" align="center"> ثبت درخواست جدید </h3>
+        <h3 class="card-title" dir="rtl" align="center"> ثبت خریدار </h3>
       </div>
     </div>
   </div>
 </div>
-
 
 
 <div class="row">
   <div class="col-md-12">
     <div class="card"  align="right" dir="rtl">
       <div class="card-header">
-        <h5 class="title"> پروفایل کاربری </h5>
+        <h5 class="title"> ثبت خریدار جدید </h5>
       </div>
       <div class="card-body">
-         <form method="post" action="{% url 'app:register_purchase_request' %}">
+
+         <form method="post" action="{% url 'app:register_buyer' %}">
            {% csrf_token %}
           <div class="row">
             <div class="col-md-3 pr-md-1">
               <div class="form-group">
-                <label> شناسه کاربری </label>
-                <input type="text" class="form-control">
+                <label> نام </label>
+                <input name="name" type="text" class="form-control">
               </div>
             </div>
             <div class="col-md-4 px-md-1">
               <div class="form-group">
-                <label> نام کاربری </label>
-                <input name="username" type="text" class="form-control">
+                <label> شماره تلفن </label>
+                <input name="phone_number" type="text" class="form-control">
               </div>
             </div>
             <div class="col-md-5 pl-md-1">
               <div class="form-group">
-                <label for="exampleInputEmail1"> آدرس ایمیل </label>
-                <input name="email" type="email" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-md-1">
-              <div class="form-group">
-                <label> نام </label>
-                <input name="first_name" type="text" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6 pl-md-1">
-              <div class="form-group">
-                <label> نام خانوادگی </label>
-                <input name="last_name" type="text" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
                 <label> آدرس </label>
-                <input name="address" type="text" class="form-control" placeholder="Address">
+                <input name="address" type="text" class="form-control">
               </div>
             </div>
           </div>
+
           <div class="row">
-            <div class="col-md-6 pr-md-1">
+            <div class="col-md-12 pr-md-1">
               <div class="form-group">
-                <label> شماره تماس </label>
-                <input name="phone" type="text" class="form-control" placeholder="City">
-              </div>
-            </div>
-            <div class="col-md-6 px-md-1">
-                <label> تصویر کاربری </label>
-                <input name="user_photo" type="file" class="form-control">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 pr-md-1">
-              <div class="form-group">
-                <label> رمز عبور </label>
-                <input name="password1" type="password" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6 px-md-1">
-              <div class="form-group">
-                <label> تکرار رمز عبور </label>
-                <input name="password2" type="password" class="form-control">
+                <label> توضیحات </label>
+                <input name="description" type="text" class="form-control">
               </div>
             </div>
           </div>
+
           <div class="card-footer">
             <button type="submit" class="btn btn-fill btn-primary"> ذخیره </button>
           </div>
+
         </form>
+
       </div>
     </div>
   </div>
 </div>
 
 
-
+<div dir="rtl" align="right">
+   <h5> تعداد کل خریداران: {{count}} </h5>
+</div>
 
 
 

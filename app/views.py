@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import template
 from . import models
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Buyers
 from .forms import ProfileForm, UserForm
 from itertools import chain
 from django.contrib.auth import get_user_model
@@ -169,8 +169,18 @@ def purchase_request_detail(request, id):
 #------------------------------------------------------------------------------
 @login_required()
 def register_buyer(request):
-    a = models.Purchase_request.objects.all()
-    return render(request, 'register_buyer.html', {'a':a})
+    count = models.Buyers.objects.all().count()
+    if request.method=="POST":
+        obj = Buyers()
+        obj.name = request.POST['name']
+        obj.phone_number = request.POST['phone_number']
+        obj.address = request.POST['address']
+        obj.description = description = request.POST['description']
+        obj.save()
+        count = models.Buyers.objects.all().count()
+        return render(request, 'register_buyer.html', {'count':count})
+    else:
+        return render(request, 'register_buyer.html', {'count':count})
 
 
 
