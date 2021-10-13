@@ -101,7 +101,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name = "نام")
     code = models.CharField(max_length=40, verbose_name = "کد")
     qty_in_box = models.IntegerField(verbose_name = "تعداد در کارتن")
-    price = models.CharField(max_length=40, verbose_name = "قیمت")
+    price = models.CharField(max_length=40, verbose_name = "قیمت ( ریال )")
     category = models.ForeignKey(Category ,on_delete=models.CASCADE ,null=True, blank=True, verbose_name = "دسته بندی")
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
     image = models.ImageField(upload_to='media', default='media/Default.png', null=True, blank=True, verbose_name = "تصویر")
@@ -163,7 +163,7 @@ class Purchase_request(models.Model):
 
 
     def __str__(self):
-        return ' شماره درخواست ' + self.code + ' توسط ' + self.user + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
+        return ' شماره درخواست ' + self.code + ' توسط ' + self.user.username + ' برای ' + self.buyer.name + ' در تاریخ ' + str(self.date)
 
     def get_absolute_url(self):
         return reverse('app:purchase_request_detail',args=[self.id])
