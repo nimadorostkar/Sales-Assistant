@@ -29,7 +29,7 @@ class UserForm(UserCreationForm):
 class Purchase_request_Form(forms.ModelForm):
 	class Meta:
 		model = Purchase_request
-		fields = ['buyer','description','method','discount','date','status']
+		fields = ['buyer','description','method','discount','status']
 
 
 class Product_qty_Form(forms.ModelForm):
