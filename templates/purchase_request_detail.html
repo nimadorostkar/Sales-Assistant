@@ -35,6 +35,7 @@
                 <th> خریدار </th>
                 <th> تاریخ </th>
                 <th> روش تسویه </th>
+                <th> درصد تخفیف </th>
                 <th> وضعیت </th>
               </tr>
             </thead>
@@ -44,6 +45,7 @@
                 <td> <a href="{{ purchase_request.buyer.get_absolute_url }}"> {{ purchase_request.buyer }} </a> </td>
                 <td> {{ purchase_request.date }} </td>
                 <td> {{ purchase_request.method }} </td>
+                <td> {{ purchase_request.discount }} % </td>
                 <td> {{ purchase_request.status }} </td>
             </tbody>
           </table>
@@ -51,6 +53,10 @@
 
         <div class="card-header"> <h4> توضیحات </h4> </div>
         <p class="category"> {{ purchase_request.description|linebreaks }} </p>
+        <br><hr>
+
+        <div class="card-header"> <h4> کالا های خریداری شده : </h4> </div>
+        {% for product in purchase_request.product.all %} <h5 class="category" align="center"> {{ product }}<br> </h5>{% endfor %}
         <br>
 
       </div>

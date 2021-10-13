@@ -22,8 +22,9 @@ from django.contrib.auth.decorators import user_passes_test
 #------------------------------------------------------------------------------
 @login_required
 def profile(request):
-  profile = models.Profile.objects.filter(user=request.user)
-  if request.method == 'POST':
+    user_requests = models.Purchase_request.objects.filter(user=request.user).order_by("-date")
+    profile = models.Profile.objects.filter(user=request.user)
+    if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
@@ -38,18 +39,19 @@ def profile(request):
             user_photo = profile_form.cleaned_data['user_photo']
             user_form.save()
             profile_form.save()
-            context = {'profile': profile,'user_form': user_form,'profile_form': profile_form }
+            context = {'profile': profile,'user_form': user_form,'profile_form': profile_form, 'user_requests':user_requests }
             return render(request, 'page-user.html', context)
-  else:
-      user_form = UserForm(instance=request.user)
-      profile_form = ProfileForm(instance=request.user.profile)
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
 
-  context = {
-  'profile': profile,
-  'user_form': user_form,
-  'profile_form': profile_form,
-  }
-  return render(request, 'page-user.html', context)
+    context = {
+    'profile': profile,
+    'user_form': user_form,
+    'profile_form': profile_form,
+    'user_requests':user_requests
+    }
+    return render(request, 'page-user.html', context)
 
 
 

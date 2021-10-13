@@ -9,6 +9,45 @@
 
 
 <div class="row">
+
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="card-body">
+        <p class="card-text">
+          <div class="author">
+            <div class="block block-one"></div>
+            <div class="block block-two"></div>
+            <div class="block block-three"></div>
+            <div class="block block-four"></div>
+            <a href="javascript:void(0)">
+              <img class="avatar" src="{{ request.user.profile.user_photo.url }}" >
+              <h5 class="title">
+                {{ request.user.username }}
+              </h5>
+            </a>
+            <br>
+            <h6 class="title">
+                <i class="tim-icons icon-single-02"></i><hr>
+               {{ request.user.first_name }} {{ request.user.last_name }}
+            </h6><br>
+            <i class="tim-icons icon-mobile"></i><hr>
+            <p class="description"> {{ request.user.profile.phone }} </p><br>
+            <i class="tim-icons icon-email-85"></i><hr>
+            <p class="description"> {{ request.user.email }} </p><br>
+          </div>
+        </p>
+        <div class="card-description">
+            {{ request.user.profile.email }}
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="button-container">
+          <a href="https://www.ksegroup.co">ksegroup.co</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="col-md-8">
     <div class="card"  align="right" dir="rtl">
       <div class="card-header">
@@ -92,44 +131,58 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+
+</div>
+
+
+
+<br>
+
+
+
+
+<div class="row" dir="rtl" align="right">
+  <div class="col-md-12">
     <div class="card card-user">
+      <div class="card-header"> درخواست های ثبت شده {{ request.user.username }} </div>
       <div class="card-body">
-        <p class="card-text">
-          <div class="author">
-            <div class="block block-one"></div>
-            <div class="block block-two"></div>
-            <div class="block block-three"></div>
-            <div class="block block-four"></div>
-            <a href="javascript:void(0)">
-              <img class="avatar" src="{{ request.user.profile.user_photo.url }}" >
-              <h5 class="title">
-                {{ request.user.username }}
-              </h5>
-            </a>
-            <br>
-            <h6 class="title">
-                <i class="tim-icons icon-single-02"></i><hr>
-               {{ request.user.first_name }} {{ request.user.last_name }}
-            </h6><br>
-            <i class="tim-icons icon-mobile"></i><hr>
-            <p class="description"> {{ request.user.profile.phone }} </p><br>
-            <i class="tim-icons icon-email-85"></i><hr>
-            <p class="description"> {{ request.user.email }} </p><br>
-          </div>
-        </p>
-        <div class="card-description">
-            {{ request.user.profile.email }}
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="button-container">
-          <a href="https://www.ksegroup.co">ksegroup.co</a>
+        <div class="table-responsive">
+          <table class="table tablesorter text-center" id="">
+            <thead class=" text-primary">
+              <tr class="bold">
+                <th> شماره درخواست </th>
+                <th> خریدار </th>
+                <th> روش تسویه </th>
+                <th> تاریخ </th>
+                <th> وضعیت </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for Purchase_request in user_requests %}
+              {% if Purchase_request.status == 'جدید' %}
+               <tr style="background-color:#f98f223d;">
+              {% else %}
+               <tr>
+              {% endif %}
+                <td><a href="{{ Purchase_request.get_absolute_url }}"> {{ Purchase_request.id }} </a></td>
+                <td> {{ Purchase_request.buyer }} </td>
+                <td> {{ Purchase_request.method }} </td>
+                <td> {{ Purchase_request.date }} </td>
+                <td> {{ Purchase_request.status }} </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
 
 
 {% endblock content %}
