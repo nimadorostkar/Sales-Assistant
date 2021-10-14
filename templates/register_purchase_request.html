@@ -28,13 +28,13 @@
 
      <div class="add-field" id="form">
           <label> محصول </label>
-          <select name="product" id="0" class="form-control show-tick selectpicker">
+          <select name="product-0" id="0" class="form-control show-tick selectpicker">
             {% for Product in products %}
               <option value={{Product.id}}>{{Product.name}}</option>
             {% endfor %}
           </select>
           <label> تعداد </label>
-          <input name="qty" type="number" class="form-control">
+          <input name="qty-0" type="number" class="form-control">
       </div>
 
      <div class="card-footer">
@@ -105,8 +105,6 @@
         addInput();
       }.bind(this));
     })();
-
-
 
 
 

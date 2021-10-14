@@ -207,8 +207,8 @@ def register_purchase_request(request):
             req.save()
 
             obj = Product_qty()
-            obj.product = get_object_or_404(models.Product, id=request.POST.get('product'))
-            obj.qty = request.POST['qty']
+            obj.product = get_object_or_404(models.Product, id=request.POST.get('product-0'))
+            obj.qty = request.POST['qty-0']
             obj.property = req
             obj.save()
 
