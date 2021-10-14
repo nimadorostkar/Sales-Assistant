@@ -142,7 +142,8 @@ def buyer_detail(request, id):
 
 
 #------------------------------------------------------------------------------
-@user_passes_test(lambda u: u.is_superuser)
+#@user_passes_test(lambda u: u.is_superuser)
+@login_required()
 def purchase_request(request):
     new_req = models.Purchase_request.objects.filter(status='جدید').count()
     total_req = models.Purchase_request.objects.all().count()
