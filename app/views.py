@@ -198,6 +198,10 @@ def register_purchase_request(request):
     if request.method=="POST":
         purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
         if purchase_req_form.is_valid():
+
+            tot_counter = request.POST['tot-counter']
+            print(tot_counter)
+
             req = Purchase_request()
             req.user = request.user
             req.buyer = purchase_req_form.cleaned_data['buyer']
