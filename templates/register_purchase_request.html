@@ -32,24 +32,24 @@
         <form action="#" method="post" dir="rtl" align="right">
          {% csrf_token %}
          <div class="row">
-           <div class="col-md-4 pr-md-1">
+           <div class="col-md-4 pr-md-4">
              <div class="form-group">
                {{ purchase_req_form.buyer|bootstrap }}
              </div>
            </div>
-           <div class="col-md-4 px-md-1">
+           <div class="col-md-4 px-md-4">
              <div class="form-group">
                {{ purchase_req_form.method|bootstrap }}
              </div>
            </div>
-           <div class="col-md-2 pl-md-1">
+           <div class="col-md-2 pl-md-4">
              <div class="form-group">
                {{ purchase_req_form.discount|bootstrap  }}
              </div>
            </div>
          </div>
          <div class="row">
-           <div class="col-md-11 pr-md-1">
+           <div class="col-md-10 pr-md-4">
              <div class="form-group">
                {{ purchase_req_form.description|bootstrap  }}
              </div>
@@ -57,27 +57,29 @@
          </div>
          <br><br>
 
-         <div class="add-field" id="form">
+           <div class="row">
+             <div class="col-md-5 pr-md-4">
+               <div class="form-group">
+                 <label> محصول </label>
 
+                 <select name="product-0" id="0" class="form-control">
+                   {% for Product in products %}
+                     <option value={{Product.id}}>{{Product.name}}</option>
+                   {% endfor %}
+                 </select>
+               </div>
+             </div>
+             <div class="col-md-2 px-md-4">
+               <div class="form-group">
+                 <label> تعداد </label>
+                 <input name="qty-0" type="number" class="form-control">
+               </div>
+             </div>
+           </div>
 
-
-            <label> محصول </label>
-            <select name="product-0" id="0" class="form-control show-tick selectpicker">
-              {% for Product in products %}
-                <option value={{Product.id}}>{{Product.name}}</option>
-              {% endfor %}
-            </select>
-            
-            <label> تعداد </label>
-            <input name="qty-0" type="number" class="form-control">
-
-
-
-
-          </div>
-          <button id="btn" type="button"> افزودن محصول دیگر </button>
-
-          <input name="tot-counter" id="tot-counter" type="hidden" value="0">
+           <div class="add-field" id="form"> </div>
+           <button id="btn" type="button"> افزودن محصول دیگر </button>
+           <input name="tot-counter" id="tot-counter" type="hidden" value="0">
 
          <div class="card-footer" align="center">
            <button type="submit" class="btn btn-fill btn-primary"> ذخیره </button>
@@ -108,6 +110,8 @@
   <script>
 
 
+
+
     var products = [
       {% for Product in products %}
         { "name":"{{Product.name}}", "id":{{Product.id}} },
@@ -121,6 +125,7 @@
       var form = document.getElementById('form');
       var addInput = function() {
         counter++;
+
 
         var label = document.createElement("label");
         label.innerHTML = 'محصول';
