@@ -5,6 +5,7 @@
 
 
 {% block content %}
+{% load bootstrap %}
 
 
 <div class="row">
@@ -20,10 +21,11 @@
 
 
 
-    <form action="#" method="post">
+    <form action="#" method="post" dir="rtl" align="right">
      {% csrf_token %}
-     {{ purchase_req_form.as_p }}
-     {{ product_qty_form.as_p }}
+     {{ purchase_req_form|bootstrap }}
+     <hr><hr><hr>
+     {{ product_qty_form|bootstrap }}
      <div class="card-footer">
        <button type="submit" class="btn btn-fill btn-primary"> ارسال </button>
      </div>
@@ -43,10 +45,7 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
   <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
 
-    });
+
   </script>
 {% endblock javascripts %}
