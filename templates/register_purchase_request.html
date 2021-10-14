@@ -57,25 +57,16 @@
          </div>
          <br><br>
 
-           <div class="row">
-             <div class="col-md-5 pr-md-4">
-               <div class="form-group">
-                 <label> محصول </label>
+           <label> محصول </label>
+           <select name="product-0" id="0" class="form-control">
+             {% for Product in products %}
+               <option value={{Product.id}}>{{Product.name}}</option>
+             {% endfor %}
+           </select>
 
-                 <select name="product-0" id="0" class="form-control">
-                   {% for Product in products %}
-                     <option value={{Product.id}}>{{Product.name}}</option>
-                   {% endfor %}
-                 </select>
-               </div>
-             </div>
-             <div class="col-md-2 px-md-4">
-               <div class="form-group">
-                 <label> تعداد </label>
-                 <input name="qty-0" type="number" class="form-control">
-               </div>
-             </div>
-           </div>
+           <label> تعداد </label>
+           <input name="qty-0" type="number" class="form-control">
+
 
            <div class="add-field" id="form"> </div>
            <button id="btn" type="button"> افزودن محصول دیگر </button>
@@ -91,8 +82,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 
@@ -127,6 +116,12 @@
         counter++;
 
 
+        var br = document.createElement("br");
+        form.appendChild(br);
+        var br = document.createElement("br");
+        form.appendChild(br);
+
+
         var label = document.createElement("label");
         label.innerHTML = 'محصول';
         form.appendChild(label);
@@ -153,6 +148,7 @@
         input.name = 'qty-' + counter;
         input.classList.add("form-control");
         form.appendChild(input);
+
 
         document.getElementById("tot-counter").value = counter ;
 
