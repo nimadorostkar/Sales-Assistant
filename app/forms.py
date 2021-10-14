@@ -16,6 +16,7 @@ class ProfileForm(forms.ModelForm):
 		fields = ['phone','address','user_photo']
 
 
+
 #------------------------------------------------------------------------------
 class UserForm(UserCreationForm):
 	class Meta:
@@ -30,14 +31,6 @@ class Purchase_request_Form(forms.ModelForm):
 	class Meta:
 		model = Purchase_request
 		fields = ['buyer','method','discount','description']
-
-
-class Product_qty_Form(forms.ModelForm):
-	class Meta:
-		model = Product_qty
-		fields = ['product','qty']
-
-
 
 
 

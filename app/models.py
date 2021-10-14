@@ -136,12 +136,11 @@ class Product(models.Model):
 #------------------------------------------------------------------------------
 class Purchase_request(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "کارشناس فروش")
-    #product = models.ManyToManyField(Product_qty, verbose_name = "محصول و تعداد")
     buyer = models.ForeignKey(Buyers ,on_delete=models.CASCADE, verbose_name = "خریدار")
     description=models.TextField(max_length=1000, null=True, blank=True, verbose_name = "توضیحات")
     CHOICES1 = ( ('نقدی پای بار','نقدی پای بار'), ('چک یک ماهه','چک یک ماهه'), ('چک دو ماهه','چک دو ماهه'), ('چک سه ماهه','چک سه ماهه') )
     method = models.CharField(max_length=30,choices=CHOICES1, verbose_name = "روش تسویه")
-    discount = models.IntegerField(default='0',validators=[MinValueValidator(0),MaxValueValidator(100)], verbose_name = "درصد تخفیف" )
+    discount = models.IntegerField(default='0', verbose_name = "درصد تخفیف" )
     date = jmodels.jDateField(auto_now_add=True, verbose_name = "تاریخ")
     CHOICES2 = ( ('جدید','جدید'), ('برسی شده','برسی شده') )
     status= models.CharField(max_length=20,choices=CHOICES2, default='جدید', verbose_name = "وضعیت")
