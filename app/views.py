@@ -195,35 +195,31 @@ def register_buyer(request):
 @login_required()
 def register_purchase_request(request):
     products = models.Product.objects.all()
-    buyers = models.Buyers.objects.all()
+    #buyers = models.Buyers.objects.all()
     if request.method=="POST":
-        #purchase_req_form = Purchase_request_Form(request.POST)
-        #product_qty_form = Product_qty_Form(request.POST)
-        #if purchase_req_form.is_valid() and product_qty_form.is_valid():
-        req = Purchase_request()
-        req.user = request.user
-        #req.buyer = purchase_req_form.cleaned_data['buyer']
-        req.buyer = request.POST['buyer']
-        req.method = request.POST['method']
-        req.discount = request.POST['discount']
-        req.description = request.POST['description']
-        req.save()
+        purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
+        #product_qty_form = Product_qty_Form(request.POST, instance=request.user)
+        if purchase_req_form.is_valid():
+            req = Purchase_request()
+            req.user = request.user
+            req.buyer = purchase_req_form.cleaned_data['buyer']
+            req.method = purchase_req_form.cleaned_data['method']
+            req.discount = purchase_req_form.cleaned_data['discount']
+            req.description = purchase_req_form.cleaned_data['description']
+            req.save()
 
-        obj = Product_qty()
-        obj.product = request.POST['product']
-        obj.qty = request.POST['qty']
-        obj.property = req
-        obj.save()
+            obj = Product_qty()
+            obj.product = request.POST['product']
+            obj.qty = request.POST['qty']
+            obj.property = req
+            obj.save()
 
-        #return render(request, 'register_purchase_request.html', {'purchase_req_form':purchase_req_form,
-        #'product_qty_form':product_qty_form,
-        return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers })
+            return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
     else:
-        #purchase_req_form = Purchase_request_Form(request.POST)
-        #product_qty_form = Product_qty_Form(request.POST)
-        #return render(request, 'register_purchase_request.html', {'purchase_req_form':purchase_req_form,
-        #'product_qty_form':product_qty_form,
-        return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers })
+        purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
+        #product_qty_form = Product_qty_Form(request.POST, instance=request.user)
+        return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
+
 
 
 
