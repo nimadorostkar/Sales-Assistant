@@ -206,11 +206,8 @@ def register_purchase_request(request):
             req.description = purchase_req_form.cleaned_data['description']
             req.save()
 
-            product_list_id = list(models.Product.objects.filter(name=request.POST['product']).values_list('id', flat=True))
-            product = get_object_or_404(models.Product, id=product_list_id[0])
-
             obj = Product_qty()
-            obj.product = product
+            obj.product = get_object_or_404(models.Product, id=request.POST.get('product'))
             obj.qty = request.POST['qty']
             obj.property = req
             obj.save()
