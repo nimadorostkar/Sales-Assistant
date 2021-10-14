@@ -199,9 +199,6 @@ def register_purchase_request(request):
         purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
         if purchase_req_form.is_valid():
 
-            tot_counter = request.POST['tot-counter']
-            print(tot_counter)
-
             req = Purchase_request()
             req.user = request.user
             req.buyer = purchase_req_form.cleaned_data['buyer']
@@ -215,6 +212,15 @@ def register_purchase_request(request):
             obj.qty = request.POST['qty-0']
             obj.property = req
             obj.save()
+
+            tot_counter = int(request.POST['tot-counter'])
+            for x in range(tot_counter):
+                obj = Product_qty()
+                obj.product = get_object_or_404(models.Product, id=request.POST.get('product-'+str(x+1)))
+                obj.qty = request.POST['qty-'+str(x+1)]
+                obj.property = req
+                obj.save()
+
 
             return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
     else:
