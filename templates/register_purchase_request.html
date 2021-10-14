@@ -21,24 +21,21 @@
 
 
 
-    <form action="#" method="post" dir="rtl" align="right" id="form">
+    <form action="#" method="post" dir="rtl" align="right">
      {% csrf_token %}
      {{ purchase_req_form.as_p }}
      <hr>
 
-     <div class="add-field">
-
-      <label> محصول </label>
-      <select name="product"  class="form-control show-tick selectpicker">
-        {% for Product in products %}
-          <option value={{Product.id}}>{{Product.name}}</option>
-        {% endfor %}
-      </select>
-
-      <label> تعداد </label>
-      <input name="qty" type="number" class="form-control">
-
-     </div>
+     <div class="add-field" id="form">
+          <label> محصول </label>
+          <select name="product" id="0" class="form-control show-tick selectpicker">
+            {% for Product in products %}
+              <option value={{Product.id}}>{{Product.name}}</option>
+            {% endfor %}
+          </select>
+          <label> تعداد </label>
+          <input name="qty" type="number" class="form-control">
+      </div>
 
      <div class="card-footer">
        <button type="submit" class="btn btn-fill btn-primary"> ارسال </button>
@@ -64,23 +61,57 @@
   <script>
 
 
+    var products = [
+      {% for Product in products %}
+        { "name":"{{Product.name}}", "id":{{Product.id}} },
+      {% endfor %}
+     ];
+
+
     (function() {
       var counter = 0;
       var btn = document.getElementById('btn');
       var form = document.getElementById('form');
       var addInput = function() {
         counter++;
+
+        var label = document.createElement("label");
+        label.innerHTML = 'محصول';
+        form.appendChild(label);
+        var select = document.createElement("select");
+        select.type = 'number';
+        select.id = counter;
+        select.name = 'product-' + counter;
+        form.appendChild(select);
+
+        var x = document.getElementById(counter);
+        for (i = 0; i < products.length; i++) {
+          var option = document.createElement("option");
+          option.text = products[i].name;
+          option.value = products[i].id;
+          x.add(option);
+        }
+
+        var label = document.createElement("label");
+        label.innerHTML = 'تعداد';
+        form.appendChild(label);
         var input = document.createElement("input");
-        input.id = 'input-' + counter;
-        input.type = 'text';
-        input.name = 'name';
-        input.placeholder = 'Input number ' + counter;
+        input.type = 'number';
+        input.name = 'qty-' + counter;
         form.appendChild(input);
+
       };
       btn.addEventListener('click', function() {
         addInput();
       }.bind(this));
     })();
+
+
+
+
+
+
+
 
 
   </script>
