@@ -31,9 +31,9 @@
         <div class="col-md-3 pr-md-1">
           <div class="form-group">
             <label> محصول </label>
-            <select name="product"  class="form-control show-tick selectpicker" data-live-search="true" data-live-search-style="begins" title="محصول">
+            <select name="product"  class="form-control show-tick selectpicker">
               {% for Product in products %}
-                <option> {{ Product }} </option>
+                <option value="{{Product}}">{{Product}}</option>
               {% endfor %}
             </select>
           </div>

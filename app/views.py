@@ -6,7 +6,7 @@ from django import template
 from . import models
 from django.contrib.auth.models import User
 from .models import Profile, Buyers, Product_qty, Purchase_request
-from .forms import ProfileForm, UserForm, Product_qty_Form, Purchase_request_Form
+from .forms import ProfileForm, UserForm, Purchase_request_Form
 from itertools import chain
 from django.contrib.auth import get_user_model
 from django.db import transaction
@@ -195,10 +195,8 @@ def register_buyer(request):
 @login_required()
 def register_purchase_request(request):
     products = models.Product.objects.all()
-    #buyers = models.Buyers.objects.all()
     if request.method=="POST":
         purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
-        #product_qty_form = Product_qty_Form(request.POST, instance=request.user)
         if purchase_req_form.is_valid():
             req = Purchase_request()
             req.user = request.user
@@ -208,8 +206,11 @@ def register_purchase_request(request):
             req.description = purchase_req_form.cleaned_data['description']
             req.save()
 
+            product_list_id = list(models.Product.objects.filter(name=request.POST['product']).values_list('id', flat=True))
+            product = get_object_or_404(models.Product, id=product_list_id[0])
+
             obj = Product_qty()
-            obj.product = request.POST['product']
+            obj.product = product
             obj.qty = request.POST['qty']
             obj.property = req
             obj.save()
@@ -217,7 +218,6 @@ def register_purchase_request(request):
             return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
     else:
         purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
-        #product_qty_form = Product_qty_Form(request.POST, instance=request.user)
         return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
 
 
