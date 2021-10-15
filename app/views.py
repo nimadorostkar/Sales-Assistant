@@ -63,13 +63,9 @@ def search(request):
     if request.method=="POST":
         search = request.POST['q']
         if search:
-            mold = models.Mold.objects.filter(Q(Name__icontains=search) | Q(Description__icontains=search))
-            product = models.Product.objects.filter(Q(Name__icontains=search))
-            manufacturer = models.Manufacturer.objects.filter(Q(Name__icontains=search) | Q(Description__icontains=search))
-            repair_req = models.Repair_request.objects.filter(Q(Mold__Name__icontains=search) | Q(Description__icontains=search))
-            manufacture_req = models.Manufacture_request.objects.filter(Q(Mold__Name__icontains=search) | Q(Description__icontains=search))
-            component_req = models.Component_request.objects.filter(Q(Description__icontains=search))
-            match = chain(mold, product, manufacturer, repair_req, manufacture_req, component_req)
+            product = models.Product.objects.filter(Q(name__icontains=search) | Q(code__icontains=search) | Q(description__icontains=search) )
+            buyers = models.Buyers.objects.filter(Q(name__icontains=search) | Q(description__icontains=search) )
+            match = chain(product, buyers)
             if match:
                 return render(request,'search.html', {'sr': match})
             else:
@@ -231,9 +227,6 @@ def register_purchase_request(request):
     else:
         purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
         return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
-
-
-
 
 
 

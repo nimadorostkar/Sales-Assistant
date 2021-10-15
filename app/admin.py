@@ -15,6 +15,7 @@ admin.site.register(LogEntry)
 
 
 
+
 #------------------------------------------------------------------------------
 class ProfileAdmin(ImportExportModelAdmin):
     list_display = ('user_name','phone','address')
@@ -31,6 +32,7 @@ class BuyersAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'phone_number']
 
 admin.site.register(models.Buyers, BuyersAdmin)
+
 
 
 
@@ -54,8 +56,6 @@ class ProductAdmin(ImportExportModelAdmin):
     raw_id_fields = ('category',)
 
 admin.site.register(models.Product, ProductAdmin)
-
-
 
 
 

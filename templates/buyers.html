@@ -1,11 +1,12 @@
 {% extends "layouts/base.html" %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} خریداران {% endblock %}
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 
 {% block content %}
 {% load mptt_tags %}
+
 
 
 
@@ -19,8 +20,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 
@@ -71,19 +70,6 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
   <script>
-
-
-
-
-
-    $("#eg1 li ul").slideToggle(); // hide all nested lists
-    $("#eg1 li ul").prev("a").click(function(){ // add fn to list items that have a nested list
-        $(this).next("ul").slideToggle(100); // show/hide the nested list
-        return false; // prevent scrolling
-    });
-
-
-
 
 
     $(document).ready(function() {

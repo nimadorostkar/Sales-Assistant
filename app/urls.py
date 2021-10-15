@@ -4,6 +4,7 @@ from app import views
 app_name='app'
 
 
+
 urlpatterns = [
     # The home page
     path('', views.product, name='product'),
