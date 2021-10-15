@@ -52,11 +52,13 @@
 
         <div class="card-header"> <h4> توضیحات </h4> </div>
         <p class="category"> {{ purchase_request.description|linebreaks }} </p>
-        <br><hr>
+        <br><hr><br><br>
 
         <div class="card-header"> <h4> کالا های خریداری شده : </h4> </div>
 
-          <table class="table tablesorter text-center" id="">
+   <div id="factor"> <br><br>
+
+          <table class="table tablesorter text-center">
             <thead class=" text-primary">
               <tr class="bold">
                 <th><h4> نام کالا </h4></th>
@@ -92,10 +94,13 @@
                 <td></td>
                 <td></td>
                 <td> <h4>  مجموع: </h4> </td>
-                <td> <h5> 635000000000 ریال </h5> </td>
+                <td> <h5> <span id="totalprice"></span> ریال </h5> </td>
               </tr>
             </tbody>
           </table>
+      </div>
+
+          <button onclick="printDiv('factor')"> <i style="font-size:24px" class="fa">&#xf02f;</i> </button>
 
       </div>
     </div>
@@ -142,11 +147,46 @@
 
 
 
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
+    var prices = [
+      {% for Product_qty in product_qty %}
+        { "qty":{{Product_qty.qty}}, "price":{{Product_qty.product.price}} },
+      {% endfor %}
+     ];
 
-    });
+     var price = 0;
+     for (i = 0; i < prices.length; i++) {
+       price += prices[i].qty * prices[i].price
+     }
+
+     discount =  ({{ purchase_request.discount }}/100)
+     discountprice = ( price * discount )
+     totalprice =  price - discountprice
+     document.getElementById("totalprice").innerHTML = totalprice ;
+
+
+
+
+
+
+
+     function printDiv(factor){
+     			var printContents = document.getElementById(factor).innerHTML;
+     			var originalContents = document.body.innerHTML;
+
+     			document.body.innerHTML = printContents;
+
+          window.document.dir = "rtl";
+
+     			window.print();
+
+     			document.body.innerHTML = originalContents;
+
+     		}
+
+
+
+
+
   </script>
 
 {% endblock javascripts %}
