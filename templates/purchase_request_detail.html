@@ -59,25 +59,41 @@
           <table class="table tablesorter text-center" id="">
             <thead class=" text-primary">
               <tr class="bold">
-                <th> نام کالا </th>
-                <th> کد </th>
-                <th> تعداد در کارتن </th>
-                <th> قیمت واحد </th>
-                <th> تعداد </th>
-                <th> قیمت مجموع </th>
+                <th><h4> نام کالا </h4></th>
+                <th><h4> کد </h4></th>
+                <th><h4> تعداد در کارتن </h4></th>
+                <th><h4> قیمت واحد </h4></th>
+                <th><h4> تعداد </h4></th>
+                <th><h4> قیمت مجموع </h4></th>
               </tr>
             </thead>
             <tbody>
             {% for Product_qty in product_qty %}
               <tr>
-                <td> <a href="{{ Product_qty.product.get_absolute_url }}"> {{ Product_qty.product.name }} </a> </td>
-                <td> {{ Product_qty.product.code }} </td>
-                <td> {{ Product_qty.product.qty_in_box }} عدد </td>
-                <td> {{ Product_qty.product.price }} ریال </td>
-                <td> {{ Product_qty.qty }} </td>
-                <td> {% with answer=Product_qty.qty  %} {{ answer|mul:Product_qty.product.price }} {% endwith %} ریال </td>
+                <td><h5> <a href="{{ Product_qty.product.get_absolute_url }}"> {{ Product_qty.product.name }} </a> </td>
+                <td><h5> {{ Product_qty.product.code }} </h5></td>
+                <td><h5> {{ Product_qty.product.qty_in_box }} عدد </h5></td>
+                <td><h5> {{ Product_qty.product.price }} ریال </h5></td>
+                <td><h5>{{ Product_qty.qty }} </h5></td>
+                <td><h5> {% with answer=Product_qty.qty  %} {{ answer|mul:Product_qty.product.price }} {% endwith %} ریال </h5></td>
               </tr>
             {% endfor %}
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <h4>  درصد تخفیف: </h4> </td>
+                <td> <h5> {{ purchase_request.discount }} % </h5> </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <h4>  مجموع: </h4> </td>
+                <td> <h5> 635000000000 ریال </h5> </td>
+              </tr>
             </tbody>
           </table>
 
