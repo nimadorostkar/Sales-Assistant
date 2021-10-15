@@ -156,7 +156,8 @@ def purchase_request(request):
     })
 
 
-@user_passes_test(lambda u: u.is_superuser)
+#@user_passes_test(lambda u: u.is_superuser)
+@login_required()
 def purchase_request_detail(request, id):
     purchase_request = get_object_or_404(models.Purchase_request, id=id)
     product_qty = models.Product_qty.objects.filter(property=purchase_request)
@@ -164,6 +165,9 @@ def purchase_request_detail(request, id):
         obj = purchase_request
         obj.status = 'برسی شده'
         obj.save()
+    #if request.method=="GET":
+        #obj = purchase_request
+        #obj.delete()
     return render(request, 'purchase_request_detail.html', {'purchase_request':purchase_request, 'product_qty':product_qty})
 
 

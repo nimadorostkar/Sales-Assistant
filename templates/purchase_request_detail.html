@@ -6,6 +6,7 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+{% load mathfilters %}
 {% load jalali_tags %}
 
 <div class="row">
@@ -54,10 +55,31 @@
         <br><hr>
 
         <div class="card-header"> <h4> کالا های خریداری شده : </h4> </div>
-        {% for Product_qty in product_qty %}
-          <h5 dir="rtl" align="center"> {{ Product_qty.qty }} <a href="{{ Product_qty.product.get_absolute_url }}">{{ Product_qty.product }}</a> </h5>
-        {% endfor %}
-        <br>
+
+          <table class="table tablesorter text-center" id="">
+            <thead class=" text-primary">
+              <tr class="bold">
+                <th> نام کالا </th>
+                <th> کد </th>
+                <th> تعداد در کارتن </th>
+                <th> قیمت واحد </th>
+                <th> تعداد </th>
+                <th> قیمت مجموع </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for Product_qty in product_qty %}
+              <tr>
+                <td> <a href="{{ Product_qty.product.get_absolute_url }}"> {{ Product_qty.product.name }} </a> </td>
+                <td> {{ Product_qty.product.code }} </td>
+                <td> {{ Product_qty.product.qty_in_box }} عدد </td>
+                <td> {{ Product_qty.product.price }} ریال </td>
+                <td> {{ Product_qty.qty }} </td>
+                <td> {% with answer=Product_qty.qty  %} {{ answer|mul:Product_qty.product.price }} {% endwith %} ریال </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
 
       </div>
     </div>
@@ -66,6 +88,9 @@
 </div>
 
 
+
+
+{% if request.user.is_superuser %}
 {% if purchase_request.status == 'جدید' %}
  <div dir="rtl" align="right">
      <form method="post" action="#">
@@ -74,7 +99,7 @@
     </form>
  </div>
 {% endif %}
-
+{% endif %}
 
 
 

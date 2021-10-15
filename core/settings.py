@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'app.config.AppConfig',
     'import_export',  # https://django-import-export.readthedocs.io/en/latest/index.html
     'bootstrapform',  # https://django-bootstrap-form.readthedocs.io/en/latest/
+    'mathfilters',
     'mptt',
     'allauth',        # Third Party - 1) All Auth
     'allauth.account',

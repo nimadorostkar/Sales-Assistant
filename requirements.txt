@@ -16,3 +16,4 @@ django-import-export
 django-mptt
 django-jalali-date
 django-jalali
+django-mathfilters
