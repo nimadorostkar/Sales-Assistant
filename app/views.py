@@ -6,7 +6,7 @@ from django import template
 from . import models
 from django.contrib.auth.models import User
 from .models import Profile, Buyers, Product_qty, Purchase_request
-from .forms import ProfileForm, UserForm, Purchase_request_Form
+from .forms import ProfileForm, UserForm
 from itertools import chain
 from django.contrib.auth import get_user_model
 from django.db import transaction
@@ -196,37 +196,35 @@ def register_buyer(request):
 @login_required()
 def register_purchase_request(request):
     products = models.Product.objects.all()
+    buyers = models.Buyers.objects.all()
     if request.method=="POST":
-        purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
-        if purchase_req_form.is_valid():
+        req = Purchase_request()
+        req.user = request.user
+        req.buyer = get_object_or_404(models.Buyers, id=request.POST.get('buyer'))
+        req.method = request.POST['method']
+        req.discount = request.POST['discount']
+        req.description = request.POST['description']
+        req.save()
 
-            req = Purchase_request()
-            req.user = request.user
-            req.buyer = purchase_req_form.cleaned_data['buyer']
-            req.method = purchase_req_form.cleaned_data['method']
-            req.discount = purchase_req_form.cleaned_data['discount']
-            req.description = purchase_req_form.cleaned_data['description']
-            req.save()
+        '''
 
+        obj = Product_qty()
+        obj.product = get_object_or_404(models.Product, id=request.POST.get('product-0'))
+        obj.qty = request.POST['qty-0']
+        obj.property = req
+        obj.save()
+
+        tot_counter = int(request.POST['tot-counter'])
+        for x in range(tot_counter):
             obj = Product_qty()
-            obj.product = get_object_or_404(models.Product, id=request.POST.get('product-0'))
-            obj.qty = request.POST['qty-0']
+            obj.product = get_object_or_404(models.Product, id=request.POST.get('product-'+str(x+1)))
+            obj.qty = request.POST['qty-'+str(x+1)]
             obj.property = req
             obj.save()
-
-            tot_counter = int(request.POST['tot-counter'])
-            for x in range(tot_counter):
-                obj = Product_qty()
-                obj.product = get_object_or_404(models.Product, id=request.POST.get('product-'+str(x+1)))
-                obj.qty = request.POST['qty-'+str(x+1)]
-                obj.property = req
-                obj.save()
-
-
-            return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
+        '''
+        return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers})
     else:
-        purchase_req_form = Purchase_request_Form(request.POST, instance=request.user)
-        return render(request, 'register_purchase_request.html', {'products':products, 'purchase_req_form':purchase_req_form})
+        return render(request, 'register_purchase_request.html', {'products':products, 'buyers':buyers})
 
 
 

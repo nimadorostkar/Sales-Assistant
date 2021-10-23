@@ -2,14 +2,14 @@ from django import forms
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from .models import Profile, Purchase_request, Product_qty
+from .models import Profile
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
 
 
- 
+
 #------------------------------------------------------------------------------
 class ProfileForm(forms.ModelForm):
 	class Meta:
@@ -26,11 +26,8 @@ class UserForm(UserCreationForm):
 
 
 
-#------------------------------------------------------------------------------
-class Purchase_request_Form(forms.ModelForm):
-	class Meta:
-		model = Purchase_request
-		fields = ['buyer','method','discount','description']
+
+
 
 
 

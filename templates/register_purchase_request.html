@@ -34,24 +34,29 @@
          <div class="row">
            <div class="col-md-4 pr-md-4">
              <div class="form-group">
-               {{ purchase_req_form.buyer|bootstrap }}
+               <label> خریدار </label>
+               <select name="buyer" class="form-control">
+                 {% for Buyers in buyers %}
+                   <option value={{Buyers.id}}>{{Buyers.name}}</option>
+                 {% endfor %}
+               </select>
              </div>
            </div>
            <div class="col-md-4 px-md-4">
              <div class="form-group">
-               {{ purchase_req_form.method|bootstrap }}
+               method
              </div>
            </div>
            <div class="col-md-2 pl-md-4">
              <div class="form-group">
-               {{ purchase_req_form.discount|bootstrap  }}
+              discount
              </div>
            </div>
          </div>
          <div class="row">
            <div class="col-md-10 pr-md-4">
              <div class="form-group">
-               {{ purchase_req_form.description|bootstrap  }}
+              description
              </div>
            </div>
          </div>
