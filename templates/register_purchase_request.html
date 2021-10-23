@@ -35,9 +35,9 @@
            <div class="col-md-4 pr-md-4">
              <div class="form-group">
                <label> خریدار </label>
-               <select name="buyer" class="form-control">
+               <select name="buyer" class="form-control selectpicker" data-live-search="true">
                  {% for Buyers in buyers %}
-                   <option value={{Buyers.id}}>{{Buyers.name}}</option>
+                   <option data-tokens="{{Buyers.name}}" value={{Buyers.id}}>{{Buyers.name}}</option>
                  {% endfor %}
                </select>
              </div>
@@ -110,6 +110,14 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
   <script>
+
+
+
+    $(function() {
+      $('.selectpicker').selectpicker();
+    });
+
+
 
 
 
