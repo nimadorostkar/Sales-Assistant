@@ -34,7 +34,7 @@
          <div class="row">
            <div class="col-md-4 pr-md-4">
              <div class="form-group">
-               <label> خریدار </label>
+               <label><p>خریدار </p></label>
                <select name="buyer" class="form-control selectpicker" data-live-search="true">
                  {% for Buyers in buyers %}
                    <option data-tokens="{{Buyers.name}}" value={{Buyers.id}}>{{Buyers.name}}</option>
@@ -44,7 +44,7 @@
            </div>
            <div class="col-md-4 px-md-4">
              <div class="form-group">
-               <label> روش تسویه </label>
+               <label><p> روش تسویه </p></label>
                <select name="method" class="form-control">
                 <option value="چک یک ماهه" > چک یک ماهه </option>
                 <option value="چک دو ماهه">چک دو ماهه</option>
@@ -55,7 +55,7 @@
            </div>
            <div class="col-md-2 pl-md-4">
              <div class="form-group">
-               <label> درصد تخفیف </label>
+               <label><p> درصد تخفیف </p></label>
                <input name="discount" type="number" class="form-control">
              </div>
            </div>
@@ -63,21 +63,21 @@
          <div class="row">
            <div class="col-md-10 pr-md-4">
              <div class="form-group">
-               <label> توضیحات </label>
+               <label><p> توضیحات </p></label>
                <input name="description" type="text" class="form-control">
              </div>
            </div>
          </div>
          <br><br>
 
-           <label> محصول </label>
+           <label><p> محصول </p></label>
            <select name="product-0" id="0" class="form-control">
              {% for Product in products %}
                <option value={{Product.id}}>{{Product.name}}</option>
              {% endfor %}
            </select>
 
-           <label> تعداد </label>
+           <label><p> تعداد </p></label>
            <input name="qty-0" type="number" class="form-control">
 
 
