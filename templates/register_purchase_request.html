@@ -45,11 +45,11 @@
            <div class="col-md-4 px-md-4">
              <div class="form-group">
                <label><p> روش تسویه </p></label>
-               <select name="method" class="form-control">
+               <select name="method" class="form-control selectpicker">
+                <option value="نقدی پای بار">نقدی پای بار</option>
                 <option value="چک یک ماهه" > چک یک ماهه </option>
                 <option value="چک دو ماهه">چک دو ماهه</option>
                 <option value="چک سه ماهه">چک سه ماهه</option>
-                <option value="نقدی پای بار">نقدی پای بار</option>
                </select>
              </div>
            </div>
@@ -81,7 +81,7 @@
            <input name="qty-0" type="number" class="form-control">
 
 
-           <div class="add-field" id="form"> </div>
+           <div class="add-field selectpicker" id="form"> </div>
            <button id="btn" type="button"> افزودن محصول دیگر </button>
            <input name="tot-counter" id="tot-counter" type="hidden" value="0">
 
@@ -98,10 +98,11 @@
 
 
 
-
-
-
-
+<!--
+  select.classList.add("selectpicker");
+  select.data-live-search="true";
+  option.data-tokens = products[i].name;
+-->
 
 
 {% endblock content %}
@@ -114,10 +115,10 @@
 
 
     $(function() {
-      $('.selectpicker').selectpicker();
+      $('.selectpicker').selectpicker({
+        liveSearch: true
+      });
     });
-
-
 
 
 
@@ -137,6 +138,7 @@
         counter++;
 
 
+
         var br = document.createElement("br");
         form.appendChild(br);
         var br = document.createElement("br");
@@ -147,20 +149,18 @@
         label.innerHTML = 'محصول';
         form.appendChild(label);
         var select = document.createElement("select");
-        select.type = 'number';
         select.id = counter;
         select.name = 'product-' + counter;
         select.classList.add("form-control");
-        select.classList.add("selectpicker");
-        select.data-live-search="true";
         form.appendChild(select);
+
+
 
         var x = document.getElementById(counter);
         for (i = 0; i < products.length; i++) {
           var option = document.createElement("option");
           option.text = products[i].name;
           option.value = products[i].id;
-          option.data-tokens = products[i].name;
           x.add(option);
         }
 
@@ -175,6 +175,8 @@
 
 
         document.getElementById("tot-counter").value = counter ;
+
+
 
       };
       btn.addEventListener('click', function() {
