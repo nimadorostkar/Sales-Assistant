@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block title %} {{ purchase_request }} {% endblock %}
 
@@ -6,6 +7,7 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+
 {% load mathfilters %}
 {% load jalali_tags %}
 
@@ -56,7 +58,60 @@
 
         <div class="card-header"> <h4> کالا های خریداری شده : </h4> </div>
 
-   <div id="factor"> <br><br>
+
+          <table class="table tablesorter text-center">
+            <thead class=" text-primary">
+              <tr class="bold">
+                <th><h4> نام کالا </h4></th>
+                <th><h4> کد </h4></th>
+                <th><h4> تعداد در کارتن </h4></th>
+                <th><h4> قیمت واحد </h4></th>
+                <th><h4> تعداد </h4></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for Product_qty in product_qty %}
+              <tr>
+                <td> <a href="{{Product_qty.product.get_absolute_url}}"> {{ Product_qty.product.name }} </a> </td>
+                <td><h5> {{ Product_qty.product.code }} </h5></td>
+                <td><h5> {{ Product_qty.product.qty_in_box }} عدد </h5></td>
+                <td><h5> {{ Product_qty.product.price }} ریال </h5></td>
+                <td><h5> {{ Product_qty.qty }} </h5></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div class="row" align="right" dir="rtl">
+
+  <div class="col-md-12">
+    <div class="card card-user">
+      <div class="card-body">
+        <div class="table-responsive">
+
+       <div id="factor"> <br><br>
+
+            <h2 style="color:blue;" dir="rtl" align="center"> شرکت کیاصنعت </h2>
+            <p dir="rtl" align="center"> پیش فاکتور فروش </p>
+            <br>
+            <div class="row">
+              <div class="col-md-6" dir="rtl" align="right">
+                <p> &nbsp;&nbsp; خریدار: {{ purchase_request.buyer.name }} &nbsp;|&nbsp; فروشنده: کیاصنعت  &nbsp;|&nbsp;  کارشناس فروش: {{ purchase_request.user.first_name }} {{ purchase_request.user.last_name }} </p>
+              </div>
+              <div class="col-md-6" dir="rtl" align="left">
+                <p>  روش تسویه: {{ purchase_request.method }}   &nbsp;|&nbsp;  تاریخ: {{ purchase_request.date }}  &nbsp;&nbsp; </p>
+              </div>
+            </div>
 
           <table class="table tablesorter text-center">
             <thead class=" text-primary">
@@ -72,11 +127,11 @@
             <tbody>
             {% for Product_qty in product_qty %}
               <tr>
-                <td><h5> <a href="{{ Product_qty.product.get_absolute_url }}"> {{ Product_qty.product.name }} </a> </td>
+                <td><h5> {{ Product_qty.product.name }} </h5></td>
                 <td><h5> {{ Product_qty.product.code }} </h5></td>
                 <td><h5> {{ Product_qty.product.qty_in_box }} عدد </h5></td>
                 <td><h5> {{ Product_qty.product.price }} ریال </h5></td>
-                <td><h5>{{ Product_qty.qty }} </h5></td>
+                <td><h5> {{ Product_qty.qty }} </h5></td>
                 <td><h5> {% with answer=Product_qty.qty  %} {{ answer|mul:Product_qty.product.price }} {% endwith %} ریال </h5></td>
               </tr>
             {% endfor %}
@@ -98,6 +153,7 @@
               </tr>
             </tbody>
           </table>
+           <img src="{% static 'assets/img/cc.png' %}" width="80%">
       </div>
 
           <button onclick="printDiv('factor')"> <i style="font-size:24px" class="fa">&#xf02f;</i> </button>
@@ -107,6 +163,7 @@
   </div>
 
 </div>
+
 
 
 
